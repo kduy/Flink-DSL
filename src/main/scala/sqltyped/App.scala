@@ -1,3 +1,5 @@
+package sqltyped
+
 import scala.util.parsing.combinator._
 
 /**
@@ -78,8 +80,8 @@ class ReversePolishCalculator extends JavaTokenParsers with Maths {
 
 object Calculator extends ReversePolishCalculator {
   def main(args: Array[String]) {
-    println("input: " + args(0))
-    println("result: " + calculate(args(0)))
+    println("input: " + "5 4 + 2 * 3")
+    println("result: " + calculate("3 4 - 5 + 2 *"))
   }
 
   // Parse an expression and return the calculated result as a String
