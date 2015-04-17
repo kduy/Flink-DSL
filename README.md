@@ -24,3 +24,4 @@ java -jar ./target/scala-2.XX/RPNCalculator-assembly-X.X.jar "3 4 - 5 + 2 *"
 Alternatively you can use `sbt "run \"3 4 - 5 + 2 *\""`, to compile and run the code directly using your scala installation.
 
 Of course, you can put whatever expression you want as the argument, but the above is a simple example.
+# Flink-DSL
