@@ -80,7 +80,6 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved{
    * */
   lazy val selectStmtSyntax = selectClause ~ fromClause ~ opt(whereClause)^^ {
     case s ~ f ~ w => Select(s,f,w)
-    
   }
 
   // select clause
@@ -154,14 +153,31 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved{
   lazy val streamReference = rawStream //| derivedStream | joinedWindowStream
 
   // raw (Windowed)Stream
-  lazy val rawStream = ident ~ opt("as".i ~> ident)  ^^ {
+  /*lazy val rawStream = ident ~ opt("as".i ~> ident)  ^^ {
     case n ~ a => Stream(n, a)
-  }
+  }*/
 
-  //lazy val rawStream = ident ~ opt(windowSpec) ~ opt("as".i~>ident)
-  //lazy val windowSpec = ???
+  lazy val rawStream = ident ~ opt(windowSpec) ~ opt("as".i~>ident) ^^ {
+    case n ~ w ~ a => Stream(n,w,a)
+  }
+  lazy val windowSpec = "["~> window ~ otp(every) ~ opt(partition) "]" ^^ {
+    case w ~ e ~ p => windowSpec(w,e,p)
+  }
   
+  /*
+  *   window ::= "window" INTEGER (row | time)
+			every ::=  "every" INTEGER (row | time)
+			row ::=  "rows"
+			time ::= TIME_UNIT "on" IDENT
+	*/
+  lazy val window = "size".i ~> (countBased | timeBased) ^^ 
+  lazy val every  = "every".i ~> (countBased | timeBased)
+  lazy val countBased = integer <~ "rows" ^^ CountBase.apply
+  lazy val timeBased =  integer ~ timeUnit ~ opt("on" ~> named) ^^ {
+    case i ~ t ~ n => TimeBased(i, t, n)
+  }
   
+  lazy val partiontion = "partitioned".i ~> "on" ~> named ^^ Partition.apply
 
 
   // where clause
@@ -194,15 +210,12 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved{
       //| "not" ~> "exists".i ~> subselect    ^^ { t => Comparison1(t, NotExists)}
 
     )
-  
-  
+
 
   /**
    * delete
    * */
 
-  
-  
   /**
    * ==============================================
    *  Utilities
@@ -267,6 +280,7 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved{
    */
 
   lazy val dataType =  "int".i | "string".i | "double".i  | "date".i | "byte".i | "short".i | "long".i | "float".i| "character".i | "boolean".i
+  lazy val timeUnit = "microsec".i | "milisec".i | "sec".i |"min".i |"h".i | "d".i
 
   /**
    *  Constant 
@@ -295,12 +309,12 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved{
     case _ => print("nothing")
   }
   
-}
+
 
 object TestFsql extends FsqlParser{
   def main(args: Array[String]) {
     printCreateSchemaParser
     printCreateStreamParser
   }
-  
 }
+

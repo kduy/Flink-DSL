@@ -56,9 +56,8 @@ private[fsql] object Ast {
   case class hostSource[T](host: String, port : Int) extends Source[T]
   case class fileSource[T](fileName: String) extends Source[T]
   case class derivedSource[T](i: Int) extends Source[T]
-
   
-  case class Stream(name : String, alias: Option[String])
+  case class Stream(name : String, windowSpec : Option[WindowSpec],alias: Option[String])
 
 
   case class Named[T](name: String, alias: Option[String], expr: Expr[T]){
@@ -75,6 +74,15 @@ private[fsql] object Ast {
                         ) extends Statement[T]
   
   case class Where[T](predicate: Predicate[T])
+
+  /**
+   *  WINDOW
+   */
+  
+  case class WindowSpec(window: Window, every: Option[Every], partition: Option[Partition])
+  case class Window()
+  case class Every()
+  case class Partition()
 
   /**
    * * EXPRESSION
