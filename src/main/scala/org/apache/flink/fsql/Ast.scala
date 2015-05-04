@@ -7,13 +7,12 @@ private[fsql] object Ast {
   trait Unresolved {
     type Expr = Ast.Expr[Option[String]]
     type Statement = Ast.Statement[Option[String]]
-    type StructField = Ast.StructField[Option[String]]
-    type Schema = Ast.Schema[Option[String]]
     type Source = Ast.Source[Option[String]]
-    
+    type Stream = Ast.Stream[Option[String]]
     type Select = Ast.Select[Option[String]]
     type Predicate = Ast.Predicate[Option[String]]
-    
+    type Named  = Ast.Predicate[Option[String]]
+    type PolicyBased = Ast.PolicyBased[Option[String]]
   }
   object Unresolved extends  Unresolved
 
@@ -29,13 +28,13 @@ private[fsql] object Ast {
            * * @tparam T
            */
   sealed trait newSchema[T]
-  case class anonymousSchema[T](value: List[StructField[T]])  extends newSchema[T]
+  case class anonymousSchema[T](value: List[StructField])  extends newSchema[T]
   case class namedSchema[T] (name : String) extends newSchema[T]
 
-  case class createSchema[T](s: String, schema: Schema[T], parentSchema: Option[String]) extends Statement[T]
+  case class createSchema[T](s: String, schema: Schema, parentSchema: Option[String]) extends Statement[T]
 
 
-  case class StructField[T](
+  case class StructField(
                              name : String,
                              dataType: String,
                              nullable: Boolean = true) {
@@ -43,21 +42,21 @@ private[fsql] object Ast {
     //override def toString : String = s"StructField($name, ${dataType.scalaType}, $nullable )"
 
   }
-  case class Schema[T](name: Option[String], fields: List[StructField[T]])
+  case class Schema(name: Option[String], fields: List[StructField])
 
 
           /**
            *  CREATE A NEW STREAM
            * */
 
-  case class createStream[T](name : String, schema : Schema[T], source: Option[Source[T]]) extends Statement[T]
+  case class createStream[T](name : String, schema : Schema, source: Option[Source[T]]) extends Statement[T]
 
   sealed  trait Source[T]
   case class hostSource[T](host: String, port : Int) extends Source[T]
   case class fileSource[T](fileName: String) extends Source[T]
   case class derivedSource[T](i: Int) extends Source[T]
   
-  case class Stream(name : String, windowSpec : Option[WindowSpec],alias: Option[String])
+  case class Stream[T](name : String, windowSpec : Option[WindowSpec[T]],alias: Option[String])
 
 
   case class Named[T](name: String, alias: Option[String], expr: Expr[T]){
@@ -69,7 +68,7 @@ private[fsql] object Ast {
            * */
 
   case class Select[T](projection: List[Named[T]],
-                       streamReferences: Stream,
+                       streamReferences: Stream[T],
                        where: Option[Where[T]]
                         ) extends Statement[T]
   
@@ -79,11 +78,13 @@ private[fsql] object Ast {
    *  WINDOW
    */
   
-  case class WindowSpec(window: Window, every: Option[Every], partition: Option[Partition])
-  case class Window()
-  case class Every()
-  case class Partition()
+  case class WindowSpec[T](window: Window[T], every: Option[Every[T]], partition: Option[Partition[T]])
+  case class Window[T](policyBased: PolicyBased[T])
+  case class Every[T](policyBased: PolicyBased[T])
+  case class Partition[T](field: Named[T])
+  
 
+  case class PolicyBased[T] (value: Int, timeUnit: Option[String], onField: Option[Named[T]])
   /**
    * * EXPRESSION
    * @tparam T

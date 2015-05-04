@@ -19,7 +19,7 @@ object parserTest extends Properties("parserTest") with FsqlParser{
       else       
         xs.head == xs(0)   
     }
-  
+
   val schemaString = Gen.oneOf(
     Seq("create schema name1 (a boolean) extends parents",
     "create schema name1 (a boolean)")
@@ -42,12 +42,14 @@ object parserTest extends Properties("parserTest") with FsqlParser{
         result == 1
       }
 
-    }*/
-
+    }
+*/
   val selectString = Gen.oneOf(
-    Seq("select * from stream",
-    "select id, s.speed, stream.time from stream as s",
-      "select id + 3 from stream as s where id = 2 or (speed > 3 and time = 1)")
+    Seq(
+     //"select * from stream",
+     //"select id, s.speed, stream.time from stream as s",
+     //"select id + 3 from stream as s where id = 2 or (speed > 3 and time = 1)",
+    "select id from stream [size 3 min on time every 1 partitioned on time]")
   )
 
   val select =
@@ -58,8 +60,8 @@ object parserTest extends Properties("parserTest") with FsqlParser{
             println(r)
             1
           }
-          case _ => {
-            print("nothing")
+          case error => {
+            print(error)
             throws(classOf[NoSuchElementException])
             {1}
           }
