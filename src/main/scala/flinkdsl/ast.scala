@@ -1,6 +1,5 @@
 package flinkdsl
 
-import sqltyped._
 
 import scala.reflect.runtime.universe._
 
@@ -417,4 +416,15 @@ private[flinkdsl] object Ast {
 
   
 }
+
+
+object TestAst {
+  def main(args: Array[String]) {
+    import Ast._
+    import java.sql.{Types => JdbcTypes}
+    val c = new Constant[String]((typeOf[Int], JdbcTypes.DOUBLE), 5)
+    println(c.tpe)
+  }
+}
+
 

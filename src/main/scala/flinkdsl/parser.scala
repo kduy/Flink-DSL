@@ -144,6 +144,8 @@ lazy val typedColum  = named ~ typed */
     | "exists".i ~> subselect             ^^ { t => Comparison1(t, Exists) }
     | "not" ~> "exists".i ~> subselect    ^^ { t => Comparison1(t, NotExists) }
   )
+  
+  
 
   lazy val subselect = "(" ~> selectStmt <~ ")" ^^ Subselect.apply
 
@@ -185,7 +187,7 @@ lazy val typedColum  = named ~ typed */
   def dataTypes: List[Parser[DataType]] = Nil
 
   lazy val dataType: Parser[Expr] = 
-    dataTypes.foldLeft(failure("expected data type"): Parser[DataType])(_ | _) ^^ TypeExpr.apply
+    dataTypes.foldLeft(failure("expected data type"): Parser[DataType])  (_ | _) ^^ TypeExpr.apply
 
   lazy val column = (
       ident ~ "." ~ ident ^^ { case t ~ _ ~ c => col(c, Some(t)) }
@@ -279,11 +281,11 @@ lazy val typedColum  = named ~ typed */
 
   
   /* Lexical */
-  lazy val reserved = 
-    ("select".i | "delete".i | "insert".i | "update".i | "from".i | "into".i | "where".i | "as".i | 
+  lazy val reserved =
+    ("select".i | "delete".i | "insert".i | "update".i | "from".i | "into".i | "where".i | "as".i |
      "and".i | "or".i | "join".i | "inner".i | "outer".i | "left".i | "right".i | "on".i | "group".i |
-     "by".i | "having".i | "limit".i | "offset".i | "order".i | "asc".i | "desc".i | "distinct".i | 
-     "is".i | "not".i | "null".i | "between".i | "in".i | "exists".i | "values".i | "create".i | 
+     "by".i | "having".i | "limit".i | "offset".i | "order".i | "asc".i | "desc".i | "distinct".i |
+     "is".i | "not".i | "null".i | "between".i | "in".i | "exists".i | "values".i | "create".i |
      "set".i | "union".i | "except".i | "intersect".i)
 
   private def col(name: String, table: Option[String]) = Column(name, table)
@@ -326,7 +328,7 @@ object Test extends  SqlParser{
   def main(args: Array[String]) {
 
 
-    println (parseAllWith(stmt, " select (age + p.hight) * 2 from person p"))
+    println (parseAllWith(stmt, " select (age + p.hight) * 2 from person p where age >3 and hight <1 or weight = 2"))
     println("-------"*10)
    /* println (parseAllWith(stmt, " select * from person where age = 10 and name = ?"))
     println("-------"*10)
@@ -341,7 +343,7 @@ object Test extends  SqlParser{
 
 
     val result = for {
-      stmt <- parser(new SqlParser {}, "select p.age    , j.type from person p join job j")
+      stmt <- parser(new SqlParser {}, "SELECT p.age  , j.type from person p join job j")
       x <- Ast.resolveTables(stmt)
     } yield x
 

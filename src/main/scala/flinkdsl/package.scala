@@ -71,6 +71,7 @@ private[flinkdsl] abstract sealed class ?[+A] { self =>
   }
 }
 
+  
 private[flinkdsl] final case class Ok[+A](a: A) extends ?[A] {
   def map[B](f: A => B) = Ok(f(a))
   def flatMap[B](f: A => ?[B]) = f(a)

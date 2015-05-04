@@ -37,6 +37,8 @@
     <orderEntry type="library" name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.3" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scalatest:scalatest_2.11:2.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: postgresql:postgresql:9.1-901.jdbc4" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scala-sbt:test-interface:1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scalacheck:scalacheck_2.11:1.11.0" level="project" />
   </component>
 </module>
 

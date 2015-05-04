@@ -23,6 +23,7 @@ object Builds extends Build {
         case Some((2, scalaMajor)) if scalaMajor >= 11 =>
           libraryDependencies.value ++ Seq(
             "org.scalatest" % "scalatest_2.11" % "2.2.0" % "test" withSources(),
+            "org.scalacheck" %% "scalacheck" % "1.11.0" % "test",
             "org.scala-lang.modules" %% "scala-xml" % "1.0.3",
             "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.3" withSources(),
 
