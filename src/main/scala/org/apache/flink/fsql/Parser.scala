@@ -77,22 +77,29 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   }
 
   /**
-   * select
+   * SELECT STATEMENT
    **/
-  lazy val selectStmtSyntax = selectClause ~ fromClause ~ opt(whereClause) ^^ {
-    case s ~ f ~ w => Select(s, f, w)
+  lazy val selectStmtSyntax = selectClause ~ fromClause ~ opt(whereClause) ~opt(groupBy) ^^ {
+    case s ~ f ~ w ~ g=> Select(s, f,w, g)
   }
 
   // select clause
   lazy val selectClause = "select".i ~> repsep(named, ",")
 
 
-  // named
+  /**
+   *  NAMED 
+   */
   lazy val named = expr ~ opt(opt("as".i) ~> ident) ^^ {
-    case (c@Column(n, _)) ~ a => Named(n, a, c)
-    case (c@AllColumns(_)) ~ a => Named("*", a, c)
+    case (c@Column(n, _)) ~ a       => Named(n, a, c)
+    case (c@AllColumns(_)) ~ a      => Named("*", a, c)
     case (e@ArithExpr(_, _, _)) ~ a => Named("<constant>", a, e)
-    case (c@Constant(_, _)) ~ a => Named("<constant", a, c)
+    case (c@Constant(_, _)) ~ a     => Named("<constant", a, c)
+    case (f@Function(n, _)) ~ a     => Named( n , a, f)
+    case (c@Case(_,_)) ~ a          => Named("case", a, c)
+    
+    // extra
+    case (i@Input()) ~ a                 => Named("?", a, i)
   }
   /*lazy val named = opt("distinct".i) ~> (comparison | arith | simpleTerm) ~ opt(opt("as".i) ~> ident) ^^ {
     case (c@Constant(_, _)) ~ a          => Named("<constant>", a, c)
@@ -124,18 +131,18 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   lazy val arithParens: PackratParser[Expr] = "(" ~> arithExpr <~ ")"
 
   lazy val simpleExpr: PackratParser[Expr] = (
-    column |
-      allColumns |
-      optParens(simpleExpr) |
-      stringLit ^^ constS |
-      numericLit ^^ (n => if (n.contains(".")) constD(n.toDouble) else constL(n.toLong))
-    // caseExpr|
-    // functionExpr |
-    // extraTerms
+      caseExpr|
+        functionExpr |
+        stringLit ^^ constS |
+        numericLit ^^ (n => if (n.contains(".")) constD(n.toDouble) else constL(n.toLong))|
+        extraTerms|
+        allColumns |
+        column |
+        "?"        ^^^ Input[Option[String]]()|
+        optParens(simpleExpr)
     // "?"
-
     )
-
+  lazy val extraTerms : PackratParser[Expr] = failure("expect a expresion")
   lazy val allColumns =
     opt(ident <~ ".") <~ "*" ^^ (schema => AllColumns(schema))
   lazy val column = (
@@ -147,7 +154,9 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
     Column(name, schema)
 
 
-  // from clause
+  /**
+   *  FROM
+   */
   lazy val fromClause : PackratParser[StreamReference]= "from".i ~> streamReference
 
 
@@ -204,13 +213,15 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   lazy val namedColumnsJoin = "using".i ~> ident ^^ {
     col => NamedColumnJoin[Option[String]](col)
   }
-  
-  // where clause
+
+  /**
+   *  WHERE 
+   */
   lazy val whereClause = "where".i ~> predicate ^^ Where.apply
 
   lazy val predicate: PackratParser[Predicate] = (simplePredicate | parens | notPredicate) * (
     "and".i ^^^ { (p1: Predicate, p2: Predicate) => And(p1, p2)}
-      | "or".i ^^^ { (p1: Predicate, p2: Predicate) => Or(p1, p2)}
+    | "or".i ^^^ { (p1: Predicate, p2: Predicate) => Or(p1, p2)}
     )
 
   lazy val parens: PackratParser[Predicate] = "(" ~> predicate <~ ")"
@@ -237,6 +248,39 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
     )
 
 
+  /**
+   *  Function
+   */
+  lazy val functionExpr : PackratParser[Function] =
+    ident ~ "(" ~ repsep(expr, ",") ~ ")" ^^ {
+      case name ~ _ ~ params ~ _ => Function(name, params)
+    }
+
+
+  /**
+   * CASE 
+   */
+    
+   lazy val caseExpr = "case".i ~> rep(caseCondition) ~ opt(caseElse) <~ "end".i  ^^ {
+      case conds ~ elze => Case(conds, elze)
+   }
+   
+    lazy val caseCondition = "when".i ~> predicate ~ "then".i ~ expr ^^ {
+      case p ~ _ ~ e => (p , e)
+    }
+  
+    lazy val caseElse = "else".i ~> expr
+
+  /**
+   *  groupBy 
+   *  Not supported yet: with rollup, collate
+   */
+  lazy val groupBy = "group".i ~> "by".i ~> rep1sep(expr, ",") ~ opt(having) ^^ {
+    case exprs ~ h => GroupBy(exprs, h)
+  }
+  
+  lazy val having = "having".i ~> predicate ^^ Having.apply
+  
   /**
    * delete
    **/

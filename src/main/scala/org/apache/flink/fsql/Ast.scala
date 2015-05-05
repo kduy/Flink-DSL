@@ -19,6 +19,8 @@ private[fsql] object Ast {
     type DerivedStream  = Ast.DerivedStream[Option[String]]
     type Join           = Ast.Join[Option[String]]
     type JoinSpec       = Ast.JoinSpec[Option[String]]
+    type Function       = Ast.Function[Option[String]]
+
   }
   object Unresolved extends  Unresolved
 
@@ -79,8 +81,9 @@ private[fsql] object Ast {
 
   case class Select[T](projection: List[Named[T]],
                        streamReferences: StreamReference[T],
-                       where: Option[Where[T]]
-                        ) extends Statement[T]
+                       where: Option[Where[T]],
+                       groupBy: Option[GroupBy[T]]
+                      ) extends Statement[T]
   
   case class Where[T](predicate: Predicate[T])
 
@@ -119,7 +122,7 @@ private[fsql] object Ast {
   case class Constant[T](tpe: (Type, Int), value : Any) extends Expr[T]
   case class Column[T](name: String, schema : T) extends Expr[T]
   case class AllColumns[T](schema: T) extends Expr[T]
-  case class Function[T](name: String, params:List[Predicate[T]]) extends Expr[T]
+  case class Function[T](name: String, params:List[Expr[T]]) extends Expr[T]
   case class ArithExpr[T](lhs:Expr[T], op: String, rhs:Expr[T]) extends Expr[T]
   case class Input[T]() extends Expr[T]
   case class SubSelect[T](select: Select[T]) extends Expr[T]
@@ -179,5 +182,8 @@ private[fsql] object Ast {
   case class Comparison2[T](lhs: Expr[T], op: Operator2, rhs: Expr[T]) extends SimplePredicate[T]
   case class Comparison3[T](t: Expr[T], op: Operator3, value1: Expr[T], value2: Expr[T]) extends SimplePredicate[T]
 
+  
+  case class GroupBy[T](exprs: List[Expr[T]], having: Option[Having[T]])
+  case class Having[T](predicate: Predicate[T])
 
 }

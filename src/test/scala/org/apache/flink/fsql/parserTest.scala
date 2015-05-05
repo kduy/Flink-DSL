@@ -50,7 +50,7 @@ object parserTest extends Properties("parserTest") with FsqlParser{
      //"select id, s.speed, stream.time from stream as s",
      //"select id + 3 from stream as s where id = 2 or (speed > 3 and time = 1)",
     //"select id from stream [size 3 min on time every 1 partitioned on time],"
-      "select id from stream [size 2] cross join stream2[size 2] ")
+      "select count(id) as i, 1+3 *2 as NUM from stream group by item having item > 3")
   )
 
   val select =
