@@ -20,7 +20,7 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   /**
    * * Top statement
    */
-  lazy val stmt = createSchemaStmtSyntax | createStreamStmtSyntax | selectStmtSyntax //| deleteStmt   | insertStmt | splitStmt
+  lazy val stmt = createSchemaStmtSyntax | createStreamStmtSyntax | selectStmtSyntax // | insertStmtSyntax | splitStmt | deleteStmt
 
 
   /**
@@ -60,14 +60,14 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
 
   lazy val createStreamStmtSyntax: Parser[Statement] =
     "create".i ~> "stream".i ~> ident ~ new_schema ~ opt(source) ^^ {
-      case i ~ schema ~ source => createStream(i, schema, source)
+      case i ~ schema ~ source => CreateStream(i, schema, source)
 
     }
 
   lazy val source: Parser[Source] = raw_source | derived_source
   // TODO: derived_source should be subselect
   lazy val derived_source = "as".i ~> integer ^^ { case i => derivedSource[Option[String]](i)}
-  lazy val raw_source = "source".i ~> (host_source | file_source)
+  lazy val raw_source = "source".i ~> (host_source | file_source)// stream_source| ) //TODO
   lazy val host_source = "host" ~> "(" ~> stringLit ~ "," ~ integer <~ ")" ^^ {
     case h ~ _ ~ p => hostSource[Option[String]](h, p)
 
@@ -80,7 +80,7 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
    * SELECT STATEMENT
    **/
   lazy val selectStmtSyntax = selectClause ~ fromClause ~ opt(whereClause) ~opt(groupBy) ^^ {
-    case s ~ f ~ w ~ g=> Select(s, f,w, g)
+    case s ~ f ~ w ~ g => Select(s, f,w, g)
   }
 
   // select clause
@@ -170,8 +170,10 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   
   lazy val rawStream = stream ^^ {case s => ConcreteStream(s, None)}
   lazy val stream = optParens(ident ~ opt(windowSpec) ~ opt("as".i ~> ident)) ^^ {
-    case n ~ w ~ a => Stream(n, w, a)
+    case n ~ w ~ a => WindowedStream(Stream(n, a), w)
   }
+  
+  
 
   lazy val windowSpec = "[" ~> window ~ opt(every) ~ opt(partition) <~ "]" ^^ {
     case w ~ e ~ p => WindowSpec(w, e, p)
@@ -280,10 +282,31 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   }
   
   lazy val having = "having".i ~> predicate ^^ Having.apply
-  
+
+
+  /**
+   *  INSERT
+   *  // insertStmt // merge
+	    insertStmt ::= "insert" "into" IDENT (IDENT| typedColumns)? selectStmt*
+   * */
+  lazy val insertStmtSyntax = "insert".i ~> "into".i ~> stream ~ opt(colNames) ~ source ^^ {
+    case stream ~ cols ~ source => Insert(stream,cols,source)
+  }
+
+  lazy val colNames = "(" ~> repsep(ident, ",") <~ ")"
+//  lazy val selectValue = optParens(selectStmtSyntax) ^^ SelectedInput.apply
+//  lazy val sourceStream = stream ^^ MergedStream.apply
+
+
+
+
+
   /**
    * delete
    **/
+  
+  
+  
 
   /**
    * ==============================================

@@ -9,7 +9,7 @@ private[fsql] object Ast {
     type Named  = Ast.Predicate[Option[String]]
     type Statement = Ast.Statement[Option[String]]
     type Source = Ast.Source[Option[String]]
-    type Stream = Ast.Stream[Option[String]]
+    type WindowedStream = Ast.WindowedStream[Option[String]]
     type Select = Ast.Select[Option[String]]
     type Predicate = Ast.Predicate[Option[String]]
     type PolicyBased = Ast.PolicyBased[Option[String]]
@@ -57,7 +57,8 @@ private[fsql] object Ast {
            *  CREATE A NEW STREAM
            * */
 
-  case class createStream[T](name : String, schema : Schema, source: Option[Source[T]]) extends Statement[T]
+  // create a new stream
+  case class CreateStream[T](name : String, schema : Schema, source: Option[Source[T]]) extends Statement[T]
 
   sealed  trait Source[T]
   case class hostSource[T](host: String, port : Int) extends Source[T]
@@ -66,11 +67,11 @@ private[fsql] object Ast {
   
   
   sealed trait StreamReference[T]
-  case class ConcreteStream[T] (stream : Stream[T], join: Option[Join[T]]) extends  StreamReference[T]
+  case class ConcreteStream[T] (stream : WindowedStream[T], join: Option[Join[T]]) extends  StreamReference[T]
   case class DerivedStream[T] (name : String, subSelect: Select[T], join: Option[Join[T]]) extends StreamReference[T]
   
-  case class Stream[T](name : String, windowSpec : Option[WindowSpec[T]],alias: Option[String])
-
+  case class Stream(name : String, alias: Option[String])
+  case class WindowedStream[T](stream: Stream, windowSpec: Option[WindowSpec[T]])
   case class Named[T](name: String, alias: Option[String], expr: Expr[T]){
     def aliasName = alias getOrElse name
   }
@@ -186,4 +187,38 @@ private[fsql] object Ast {
   case class GroupBy[T](exprs: List[Expr[T]], having: Option[Having[T]])
   case class Having[T](predicate: Predicate[T])
 
+
+  /**
+   *  INSERT 
+   */
+  
+  case class  Insert[T](stream: WindowedStream[T], colNames: Option[List[String]], source: Source[T])
+
+
+
+  /**
+   * * 
+   * RESOLVE 
+   * * 
+   * * */
+
+
+  trait Resolved {
+    type Expr = Ast.Expr[Stream]
+    type Named  = Ast.Predicate[Stream]
+    type Statement = Ast.Statement[Stream]
+    type Source = Ast.Source[Stream]
+    type WindowedStream = Ast.WindowedStream[Schema]
+    type Select = Ast.Select[Stream]
+    type Predicate = Ast.Predicate[Stream]
+    type PolicyBased = Ast.PolicyBased[Stream]
+    type Where = Ast.Where[Stream]
+    type StreamReference = Ast.StreamReference[Stream]
+    type ConcreteStream  = Ast.ConcreteStream[Stream]
+    type DerivedStream  = Ast.DerivedStream[Stream]
+    type Join           = Ast.Join[Stream]
+    type JoinSpec       = Ast.JoinSpec[Stream]
+    type Function       = Ast.Function[Stream]
+  }
+  object Resolved extends  Resolved
 }
