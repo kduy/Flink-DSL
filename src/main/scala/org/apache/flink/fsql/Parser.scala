@@ -148,18 +148,19 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
 
 
   // from clause
-  lazy val fromClause = "from".i ~> streamReference
+  lazy val fromClause : PackratParser[StreamReference]= "from".i ~> streamReference
 
 
   // stream Reference
-  lazy val streamReference = rawStream //| derivedStream | joinedWindowStream
+  lazy val streamReference =  derivedStream | joinedWindowStream | rawStream
 
   // raw (Windowed)Stream
   /*lazy val rawStream = ident ~ opt("as".i ~> ident)  ^^ {
     case n ~ a => Stream(n, a)
   }*/
-
-  lazy val rawStream = ident ~ opt(windowSpec) ~ opt("as".i ~> ident) ^^ {
+  
+  lazy val rawStream = stream ^^ {case s => ConcreteStream(s, None)}
+  lazy val stream = optParens(ident ~ opt(windowSpec) ~ opt("as".i ~> ident)) ^^ {
     case n ~ w ~ a => Stream(n, w, a)
   }
 
@@ -167,12 +168,7 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
     case w ~ e ~ p => WindowSpec(w, e, p)
   }
 
-  /*
-  *   window ::= "window" INTEGER (row | time)
-			every ::=  "every" INTEGER (row | time)
-			row ::=  "rows"
-			time ::= TIME_UNIT "on" IDENT
-	*/
+  
   lazy val window = "size".i ~> policyBased ^^ Window.apply
   lazy val every = "every".i ~> policyBased ^^ Every.apply
   //lazy val policyBased = (countBased | timeBased)
@@ -183,7 +179,32 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
 
   lazy val partition = "partitioned".i ~> "on".i ~> named ^^ Partition.apply
 
-
+  
+  // derivedStream
+  lazy val derivedStream = subselect ~ opt("as".i) ~ ident ~ opt(joinType) ^^ {
+    case s ~ _ ~ i ~ j => DerivedStream(i, s.select , j)
+  }
+  
+  
+  lazy val subselect = "("~> selectStmtSyntax <~ ")" ^^ SubSelect.apply
+  
+  // joinedWindowStream
+  lazy val joinedWindowStream = stream ~ opt(joinType) ^^ {case s ~ j => ConcreteStream(s,j)}
+  lazy val joinType: PackratParser[Join] =  crossJoin | qualifiedJoin
+  
+  lazy val crossJoin = ("cross".i ~> "join".i ~> optParens(streamReference)) ^^ {
+    s => Join(s, None, Cross)
+  }
+  lazy val qualifiedJoin = ("left".i ~> "join".i ~> optParens(streamReference) ~ opt(joinSpec)) ^^ {
+    case s ~ j => Join(s, j , LeftOuter)
+  }
+  
+  lazy val joinSpec :PackratParser[JoinSpec] = conditionJoin | namedColumnsJoin
+  lazy val conditionJoin = "on".i ~> predicate  ^^ QualifiedJoin.apply
+  lazy val namedColumnsJoin = "using".i ~> ident ^^ {
+    col => NamedColumnJoin[Option[String]](col)
+  }
+  
   // where clause
   lazy val whereClause = "where".i ~> predicate ^^ Where.apply
 
@@ -249,7 +270,8 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
       "set".i | "union".i | "except".i | "intersect".i |
 
       "window".i | "schema".i| 
-      "every".i| "size".i| "partitioned".i
+      "every".i| "size".i| "partitioned".i |
+      "cross".i | "join".i | "left".i
       )
 
   implicit class KeywordOpts(kw: String) {

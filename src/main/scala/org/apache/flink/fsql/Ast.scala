@@ -6,13 +6,19 @@ private[fsql] object Ast {
 
   trait Unresolved {
     type Expr = Ast.Expr[Option[String]]
+    type Named  = Ast.Predicate[Option[String]]
     type Statement = Ast.Statement[Option[String]]
     type Source = Ast.Source[Option[String]]
     type Stream = Ast.Stream[Option[String]]
     type Select = Ast.Select[Option[String]]
     type Predicate = Ast.Predicate[Option[String]]
-    type Named  = Ast.Predicate[Option[String]]
     type PolicyBased = Ast.PolicyBased[Option[String]]
+    type Where = Ast.Where[Option[String]]
+    type StreamReference = Ast.StreamReference[Option[String]]
+    type ConcreteStream  = Ast.ConcreteStream[Option[String]]
+    type DerivedStream  = Ast.DerivedStream[Option[String]]
+    type Join           = Ast.Join[Option[String]]
+    type JoinSpec       = Ast.JoinSpec[Option[String]]
   }
   object Unresolved extends  Unresolved
 
@@ -56,8 +62,12 @@ private[fsql] object Ast {
   case class fileSource[T](fileName: String) extends Source[T]
   case class derivedSource[T](i: Int) extends Source[T]
   
+  
+  sealed trait StreamReference[T]
+  case class ConcreteStream[T] (stream : Stream[T], join: Option[Join[T]]) extends  StreamReference[T]
+  case class DerivedStream[T] (name : String, subSelect: Select[T], join: Option[Join[T]]) extends StreamReference[T]
+  
   case class Stream[T](name : String, windowSpec : Option[WindowSpec[T]],alias: Option[String])
-
 
   case class Named[T](name: String, alias: Option[String], expr: Expr[T]){
     def aliasName = alias getOrElse name
@@ -68,7 +78,7 @@ private[fsql] object Ast {
            * */
 
   case class Select[T](projection: List[Named[T]],
-                       streamReferences: Stream[T],
+                       streamReferences: StreamReference[T],
                        where: Option[Where[T]]
                         ) extends Statement[T]
   
@@ -82,9 +92,24 @@ private[fsql] object Ast {
   case class Window[T](policyBased: PolicyBased[T])
   case class Every[T](policyBased: PolicyBased[T])
   case class Partition[T](field: Named[T])
+  case class PolicyBased[T] (value: Int, timeUnit: Option[String], onField: Option[Named[T]])
+
+
+  /**
+   * * JOIN
+   */
+  
+  case class Join[T] (stream: StreamReference[T], JoinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc)
+  
+  sealed trait JoinDesc
+  case object Cross extends JoinDesc
+  case object LeftOuter extends JoinDesc
+  
+  sealed trait JoinSpec[T]
+  case class NamedColumnJoin[T] (columns: String) extends JoinSpec[T]
+  case class QualifiedJoin[T](predicate: Predicate[T]) extends JoinSpec[T]
   
 
-  case class PolicyBased[T] (value: Int, timeUnit: Option[String], onField: Option[Named[T]])
   /**
    * * EXPRESSION
    * @tparam T
