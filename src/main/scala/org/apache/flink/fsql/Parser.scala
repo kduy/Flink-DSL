@@ -421,7 +421,7 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   
 }*/
 
-object Test extends  FsqlParser {
+object Test2 extends FsqlParser {
 
   def parser: (FsqlParser, String) => ?[Ast.Statement[Option[String]]] = (p: FsqlParser, s: String) => p.parseAllWith(p.stmt, s)
 
@@ -436,9 +436,11 @@ object Test extends  FsqlParser {
 
 
     val result = for {
-      stmt <- parser(new FsqlParser {}, "select id, s.speed, stream.time from stream [size 3]as s cross join stream2[size 3]")
-      //x <- Ast.resolvedStreams(stmt)
-      x = stmt.streams
+      //stmt <- parser(new FsqlParser {}, "select id, s.speed, stream.time from stream [size 3]as s cross join stream2[size 3]")
+      stmt <- parser(new FsqlParser {}, "select id,  s.speed, stream.time from stream as s ")
+
+      x <- Ast.resolvedStreams(stmt)
+      //x = stmt.streams
     } yield x
 
     println(result)

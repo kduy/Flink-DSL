@@ -29,6 +29,35 @@ package object fsql {
   private[fsql] def ok[A](a: A): ?[A] = 
     fsql.Ok(a)
 
+  
+  
+  // accumulate
+  private[fsql] def sequence[A](rs: List[?[A]]): ?[List[A]] =
+    rs.foldRight(List[A]().ok) {
+      (ra, ras) => for {
+        as <- ras;
+        a <- ra
+      } yield a :: as
+    }
+
+
+  
+  def sequenceX[A](rs: List[Option[A]]): Option[List[A]] =
+    rs.foldRight(Option(List[A]())) {
+      (ra, ras) => for {
+        as <- ras;
+        a <- ra
+      } yield (a :: as)
+    }
+  
+  
+  private[fsql] def sequenceO[A](rs: Option[?[A]]): ?[Option[A]] =
+    rs.foldRight(None.ok: ?[Option[A]]) {
+      (ra, _) => for {
+        a <- ra
+      } yield Some(a)
+    }
+
 }
 
 
@@ -40,7 +69,7 @@ package fsql{
   
   private[fsql] abstract sealed class ?[+A] { self =>
     def map[B](f: A => B): ?[B]
-    def flatmap[B](f: A => ?[B]): ?[B]
+    def flatMap[B](f: A => ?[B]): ?[B]
     def foreach[U](f: A => U): Unit
     def fold[B](ifFail: Failure[A] => B, f: A=> B): B
     def filter(p: A => Boolean): ?[A]
@@ -48,7 +77,7 @@ package fsql{
   def withFilter(p: A => Boolean): WithFilter = new WithFilter(p)
     class WithFilter(p: A => Boolean){
       def map[B](f: A => B ): ?[B] = self filter p map f
-      def flatmap[B](f: A => ?[B]): ?[B]  = self filter p flatmap f
+      def flatMap[B](f: A => ?[B]): ?[B]  = self filter p flatMap f
       def foreach[U](f: A => U): Unit = self filter p foreach f
       def withFilter(q: A => Boolean): WithFilter = new WithFilter(x => p(x) && q(x))
     }
@@ -60,7 +89,7 @@ package fsql{
 
     def filter(p: (A) => Boolean): ?[A] = if(p(a)) this else fail("filter on ?[_] failed")
 
-    def flatmap[B](f: (A) => ?[B]): ?[B] = f(a)
+    def flatMap[B](f: (A) => ?[B]): ?[B] = f(a)
 
     def fold[B](ifFail: (Failure[A]) => B, f: (A) => B): B = f(a)
 
@@ -74,7 +103,7 @@ package fsql{
 
     def filter(p: (A) => Boolean): ?[A] = this
 
-    def flatmap[B](f: (A) => ?[B]): ?[B] = Failure(message, column, line)
+    def flatMap[B](f: (A) => ?[B]): ?[B] = Failure(message, column, line)
 
     def fold[B](ifFail: (Failure[A]) => B, f: (A) => B): B = ifFail(this)
 

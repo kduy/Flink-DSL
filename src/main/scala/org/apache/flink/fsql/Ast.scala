@@ -14,7 +14,7 @@ private[fsql] object Ast {
     type Predicate = Ast.Predicate[Option[String]]
     type PolicyBased = Ast.PolicyBased[Option[String]]
     type Where = Ast.Where[Option[String]]
-    type StreamReference = Ast.StreamReference[Option[String]]
+    type StreamReference = Ast.StreamReferences[Option[String]]
     type ConcreteStream  = Ast.ConcreteStream[Option[String]]
     type DerivedStream  = Ast.DerivedStream[Option[String]]
     type Join           = Ast.Join[Option[String]]
@@ -75,16 +75,17 @@ private[fsql] object Ast {
   case class derivedSource[T](i: Int) extends Source[T]
   
   
-  sealed trait StreamReference[T]{
+  sealed trait StreamReferences[T]{
+
     def streams :List[Stream]
     def name: String
   }
-  case class ConcreteStream[T] (windowedStream : WindowedStream[T], join: Option[Join[T]]) extends  StreamReference[T]{
+  case class ConcreteStream[T] (windowedStream : WindowedStream[T], join: Option[Join[T]]) extends  StreamReferences[T]{
     def streams = windowedStream.stream :: join.fold(List[Stream]())(_.stream.streams)
     def name = windowedStream.stream.name
     
   }
-  case class DerivedStream[T] (name : String, subSelect: Select[T], join: Option[Join[T]]) extends StreamReference[T]{
+  case class DerivedStream[T] (name : String, subSelect: Select[T], join: Option[Join[T]]) extends StreamReferences[T]{
     def streams = Stream(name, None) :: join.fold(List[Stream]())(_.stream.streams)
     
   }
@@ -99,8 +100,9 @@ private[fsql] object Ast {
            *    SELECT
            * */
 
-  case class Select[T](projection: List[Named[T]],
-                       streamReference: StreamReference[T],
+          //TODO: should not have any Nil. for testing purpose only
+  case class Select[T](projection: List[Named[T]] ,
+                       streamReference: StreamReferences[T],
                        where: Option[Where[T]],
                        groupBy: Option[GroupBy[T]]
                       ) extends Statement[T] {
@@ -126,7 +128,7 @@ private[fsql] object Ast {
    * * JOIN
    */
   
-  case class Join[T] (stream: StreamReference[T], JoinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc) {}
+  case class Join[T] (stream: StreamReferences[T], JoinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc) {}
   
   sealed trait JoinDesc
   case object Cross extends JoinDesc
@@ -143,7 +145,7 @@ private[fsql] object Ast {
   // Expression (previously : Term)
   sealed trait Expr[T]
   case class Constant[T](tpe: (Type, Int), value : Any) extends Expr[T]
-  case class Column[T](name: String, schema : T) extends Expr[T]
+  case class Column[T](name: String, stream : T) extends Expr[T]
   case class AllColumns[T](schema: T) extends Expr[T]
   case class Function[T](name: String, params:List[Expr[T]]) extends Expr[T]
   case class ArithExpr[T](lhs:Expr[T], op: String, rhs:Expr[T]) extends Expr[T]
@@ -234,7 +236,7 @@ private[fsql] object Ast {
     type Predicate = Ast.Predicate[Stream]
     type PolicyBased = Ast.PolicyBased[Stream]
     type Where = Ast.Where[Stream]
-    type StreamReference = Ast.StreamReference[Stream]
+    type StreamReference = Ast.StreamReferences[Stream]
     type ConcreteStream  = Ast.ConcreteStream[Stream]
     type DerivedStream  = Ast.DerivedStream[Stream]
     type Join           = Ast.Join[Stream]
@@ -246,15 +248,19 @@ private[fsql] object Ast {
   
   
 
-  def resolvedStreams(stmt : Statement[Option[String]]): ?[Statement[Stream]] = stmt match {
-    case s@Select(_,_,_,_) => resolveSelect(s)()    
+  def resolvedStreams(stmt : Statement[Option[String]])//: ?[Statement[Stream]]
+  = stmt match {
+    case s@Select(_,_,_,_) => resolveSelect(s)(stmt.streams)
   }
   
-  def resolveSelect (s: Select[Option[String]])(env: List[Stream] = List()): ?[Select[Stream]] = {
+  def resolveSelect (s: Select[Option[String]])(env: List[Stream] = List())= {
     val r = new ResolveEnv(env)
-
-    fail("nothing")
+    for {
+      p <- r.resolveProj(s.projection)
+      s <- r.resolveStreamRef(s.streamReference)
+    } yield p
   }
+  
   
   
   
@@ -263,28 +269,67 @@ private[fsql] object Ast {
       case c@Column(_,_) => resolveColumn(c)
     }
 
+    //projection
+    def resolveProj(proj : List[Named[Option[String]]]) : ?[List[Named[Stream]]]
+    = sequence(proj map resolveNamed)
+
+
+    //StreamReference
+    def resolveStreamRef(streamRefs: StreamReferences[Option[String]])= streamRefs match {
+      case c@ConcreteStream(_,_,_) => ???
+      case d@DerivedStream(_,_,_) => ???
+      
+    }
+
+    def resolvePolicyBased(based: PolicyBased[Option[String]]): ?[PolicyBased[Stream]] = 
+        based.onField match {
+          case Some(field) => resolveNamed(field) map (f => based.copy(onField =  Some(f)))
+          case None => ???
+          
+        }
+
+
+    def resolveWindowing(window: Window[Option[String]]) : ?[Window[Stream]] = {
+      resolvePolicyBased(window.policyBased) map (p => window.copy( policyBased = p))
+    }
+
+    def resolveWindowedSpec( windowedStream : WindowedStream[Option[String]]) : ?[Option[WindowSpec[Stream]]] =
+      windowedStream.windowSpec.fold((None.ok)) {
+        spec => for {
+          w <- resolveWindowing(spec.window)
+          e <- resolveEvery(spec.every  )
+          p <- resolvePartition(spec.partition)
+          
+        } yield spec.copy(window = w, every =  e , partition =  p)
+      }
+      
     
     
+    //where
+    
+    
+    //groupBy
+
+
+    def resolveNamed(n: Named[Option[String]]) : ?[Named[Stream]]=
+      resolve(n.expr) map (e => n.copy(expr =  e))
+
+
+
     def resolveColumn(col: Column[Option[String]]): ?[Column[Stream]] = {
-      fail("nothing")
+      env find { 
+        s =>
+          (col.stream, s.alias) match {
+            case (Some(ref), None) => println (ref, s.name,ref == s.name);ref == s.name
+            case (Some(ref), Some(alias)) => (ref == s.name) || (ref == alias)
+            case (None, _) => true // assume that we take the first stream
+                                   // if there are more than 1, not working
+          }
+      } map ( s => col.copy(stream = s)) orFail("Column references unknown")
     }
     
+    
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
