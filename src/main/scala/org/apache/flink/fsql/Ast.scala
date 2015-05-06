@@ -121,7 +121,7 @@ private[fsql] object Ast {
   case class Window[T](policyBased: PolicyBased[T])
   case class Every[T](policyBased: PolicyBased[T])
   case class Partition[T](field: Named[T])
-  case class PolicyBased[T] (value: Int, timeUnit: Option[String], onField: Option[Named[T]])
+  case class PolicyBased[T] (value: Int, timeUnit: Option[String], onField: Option[Column[T]])
 
 
   /**
@@ -257,7 +257,7 @@ private[fsql] object Ast {
     val r = new ResolveEnv(env)
     for {
       p <- r.resolveProj(s.projection)
-      s <- r.resolveStreamRef(s.streamReference)
+      //s <- r.resolveStreamRef(s.streamReference)
     } yield p
   }
   
@@ -272,7 +272,7 @@ private[fsql] object Ast {
     //projection
     def resolveProj(proj : List[Named[Option[String]]]) : ?[List[Named[Stream]]]
     = sequence(proj map resolveNamed)
-
+/*
 
     //StreamReference
     def resolveStreamRef(streamRefs: StreamReferences[Option[String]])= streamRefs match {
@@ -310,7 +310,7 @@ private[fsql] object Ast {
     
     //groupBy
 
-
+*/
     def resolveNamed(n: Named[Option[String]]) : ?[Named[Stream]]=
       resolve(n.expr) map (e => n.copy(expr =  e))
 

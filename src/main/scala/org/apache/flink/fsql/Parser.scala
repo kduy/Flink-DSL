@@ -184,8 +184,8 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
   lazy val every = "every".i ~> policyBased ^^ Every.apply
   //lazy val policyBased = (countBased | timeBased)
   //lazy val countBased : PackratParser[CountBased]= integer <~ "rows" ^^ CountBased.apply
-  lazy val policyBased: PackratParser[PolicyBased] = integer ~ opt(timeUnit) ~ opt("on".i ~> named) ^^ {
-    case i ~ t ~ n => PolicyBased(i, t, n)
+  lazy val policyBased: PackratParser[PolicyBased] = integer ~ opt(timeUnit) ~ opt("on".i ~> column) ^^ {
+    case i ~ t ~ c => PolicyBased(i, t, c)
   }
 
   lazy val partition = "partitioned".i ~> "on".i ~> named ^^ Partition.apply
