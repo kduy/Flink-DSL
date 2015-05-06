@@ -348,17 +348,18 @@ object Test extends  SqlParser{
     } yield x
 
     println(result)
-/*
-Ok(Select(List(Named(<constant>,None,ArithExpr(ArithExpr(Column(age,None),+,Column(hight,Some(p))),*,Constant((Long,-5),2)))),List(ConcreteTable(Table(person,Some(p)),List())),None,None,None,None))
-----------------------------------------------------------------------
-Ok(Select(List(Named(*,None,AllColumns(None))),List(ConcreteTable(Table(person,None),List())),Some(Where(And(Comparison2(Column(age,None),Eq,Constant((Long,-5),10)),Comparison2(Column(name,None),Eq,Input())))),None,None,None))
-----------------------------------------------------------------------
-Ok(Select(List(Named(*,None,AllColumns(None))),List(DerivedTable(p,Select(List(Named(age,None,Column(age,None))),List(ConcreteTable(Table(person,None),List())),None,None,None,None),List())),None,None,None,None))
-----------------------------------------------------------------------
-Ok(Select(List(Named(age,None,Column(age,Some(p))), Named(type,None,Column(type,Some(j)))),List(ConcreteTable(Table(person,Some(p)),List(Join(ConcreteTable(Table(job,Some(j)),List()),Some(QualifiedJoin(Comparison2(Column(job,Some(p)),Eq,Column(id,Some(j))))),Inner)))),None,None,None,None))
-----------------------------------------------------------------------
-Ok(Select(List(Named(age,None,Column(age,Some(p))), Named(type,None,Column(type,Some(j)))),List(ConcreteTable(Table(person,Some(p)),List(Join(ConcreteTable(Table(job,Some(j)),List()),None,Inner)))),None,None,None,None))
-    */}
+
+    /*
+    Ok(Select(List(Named(<constant>,None,ArithExpr(ArithExpr(Column(age,None),+,Column(hight,Some(p))),*,Constant((Long,-5),2)))),List(ConcreteTable(Table(person,Some(p)),List())),None,None,None,None))
+    ----------------------------------------------------------------------
+    Ok(Select(List(Named(*,None,AllColumns(None))),List(ConcreteTable(Table(person,None),List())),Some(Where(And(Comparison2(Column(age,None),Eq,Constant((Long,-5),10)),Comparison2(Column(name,None),Eq,Input())))),None,None,None))
+    ----------------------------------------------------------------------
+    Ok(Select(List(Named(*,None,AllColumns(None))),List(DerivedTable(p,Select(List(Named(age,None,Column(age,None))),List(ConcreteTable(Table(person,None),List())),None,None,None,None),List())),None,None,None,None))
+    ----------------------------------------------------------------------
+    Ok(Select(List(Named(age,None,Column(age,Some(p))), Named(type,None,Column(type,Some(j)))),List(ConcreteTable(Table(person,Some(p)),List(Join(ConcreteTable(Table(job,Some(j)),List()),Some(QualifiedJoin(Comparison2(Column(job,Some(p)),Eq,Column(id,Some(j))))),Inner)))),None,None,None,None))
+    ----------------------------------------------------------------------
+    Ok(Select(List(Named(age,None,Column(age,Some(p))), Named(type,None,Column(type,Some(j)))),List(ConcreteTable(Table(person,Some(p)),List(Join(ConcreteTable(Table(job,Some(j)),List()),None,Inner)))),None,None,None,None))
+        */}
   
 }
 

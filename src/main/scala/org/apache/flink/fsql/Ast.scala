@@ -29,7 +29,10 @@ private[fsql] object Ast {
    * @tparam T
    */
 
-  sealed trait Statement[T]
+  sealed trait Statement[T]{
+    def streams : List[Stream]
+    def isQuery = false
+  }
 
           /**
            *  CREATE A NEW SCHEMA
@@ -39,7 +42,10 @@ private[fsql] object Ast {
   case class anonymousSchema[T](value: List[StructField])  extends newSchema[T]
   case class namedSchema[T] (name : String) extends newSchema[T]
 
-  case class createSchema[T](s: String, schema: Schema, parentSchema: Option[String]) extends Statement[T]
+  case class createSchema[T](s: String, schema: Schema, parentSchema: Option[String]) extends Statement[T] {
+    def streams = Nil
+    
+  }
 
 
   case class StructField(
@@ -58,7 +64,10 @@ private[fsql] object Ast {
            * */
 
   // create a new stream
-  case class CreateStream[T](name : String, schema : Schema, source: Option[Source[T]]) extends Statement[T]
+  case class CreateStream[T](name : String, schema : Schema, source: Option[Source[T]]) extends Statement[T] {
+       def streams = Nil
+            
+  }
 
   sealed  trait Source[T]
   case class hostSource[T](host: String, port : Int) extends Source[T]
@@ -66,9 +75,19 @@ private[fsql] object Ast {
   case class derivedSource[T](i: Int) extends Source[T]
   
   
-  sealed trait StreamReference[T]
-  case class ConcreteStream[T] (stream : WindowedStream[T], join: Option[Join[T]]) extends  StreamReference[T]
-  case class DerivedStream[T] (name : String, subSelect: Select[T], join: Option[Join[T]]) extends StreamReference[T]
+  sealed trait StreamReference[T]{
+    def streams :List[Stream]
+    def name: String
+  }
+  case class ConcreteStream[T] (windowedStream : WindowedStream[T], join: Option[Join[T]]) extends  StreamReference[T]{
+    def streams = windowedStream.stream :: join.fold(List[Stream]())(_.stream.streams)
+    def name = windowedStream.stream.name
+    
+  }
+  case class DerivedStream[T] (name : String, subSelect: Select[T], join: Option[Join[T]]) extends StreamReference[T]{
+    def streams = Stream(name, None) :: join.fold(List[Stream]())(_.stream.streams)
+    
+  }
   
   case class Stream(name : String, alias: Option[String])
   case class WindowedStream[T](stream: Stream, windowSpec: Option[WindowSpec[T]])
@@ -81,10 +100,14 @@ private[fsql] object Ast {
            * */
 
   case class Select[T](projection: List[Named[T]],
-                       streamReferences: StreamReference[T],
+                       streamReference: StreamReference[T],
                        where: Option[Where[T]],
                        groupBy: Option[GroupBy[T]]
-                      ) extends Statement[T]
+                      ) extends Statement[T] {
+            
+    def streams = streamReference.streams
+    override def isQuery = true
+  }
   
   case class Where[T](predicate: Predicate[T])
 
@@ -103,7 +126,7 @@ private[fsql] object Ast {
    * * JOIN
    */
   
-  case class Join[T] (stream: StreamReference[T], JoinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc)
+  case class Join[T] (stream: StreamReference[T], JoinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc) {}
   
   sealed trait JoinDesc
   case object Cross extends JoinDesc
@@ -116,7 +139,6 @@ private[fsql] object Ast {
 
   /**
    * * EXPRESSION
-   * @tparam T
    */
   // Expression (previously : Term)
   sealed trait Expr[T]
@@ -158,7 +180,6 @@ private[fsql] object Ast {
 
   /**
    * * PREDICATE
-   * @tparam T
    */
   // Predicate
   sealed trait Predicate[T] {
@@ -196,11 +217,11 @@ private[fsql] object Ast {
 
 
 
-  /**
+  /**************************************************************************************************
    * * 
-   * RESOLVE 
+   *                            RESOLVE
    * * 
-   * * */
+   * * *************************************************************************************/
 
 
   trait Resolved {
@@ -221,4 +242,56 @@ private[fsql] object Ast {
     type Function       = Ast.Function[Stream]
   }
   object Resolved extends  Resolved
+  
+  
+  
+
+  def resolvedStreams(stmt : Statement[Option[String]]): ?[Statement[Stream]] = stmt match {
+    case s@Select(_,_,_,_) => resolveSelect(s)()    
+  }
+  
+  def resolveSelect (s: Select[Option[String]])(env: List[Stream] = List()): ?[Select[Stream]] = {
+    val r = new ResolveEnv(env)
+
+    fail("nothing")
+  }
+  
+  
+  
+  private class ResolveEnv (env : List[Stream]){
+    def resolve(expr : Expr[Option[String]]): ?[Expr[Stream]] = expr  match {
+      case c@Column(_,_) => resolveColumn(c)
+    }
+
+    
+    
+    def resolveColumn(col: Column[Option[String]]): ?[Column[Stream]] = {
+      fail("nothing")
+    }
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+

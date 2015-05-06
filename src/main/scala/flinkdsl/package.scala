@@ -47,9 +47,18 @@ package object flinkdsl {
   }
 
   private[flinkdsl] def sequence[A](rs: List[?[A]]): ?[List[A]] =
-    rs.foldRight(List[A]().ok) { (ra, ras) => for { as <- ras; a <- ra } yield a :: as }
+    rs.foldRight(List[A]().ok) { 
+      (ra, ras) => for { 
+                    as <- ras; 
+                    a <- ra 
+                  } yield a :: as 
+  }
   private[flinkdsl] def sequenceO[A](rs: Option[?[A]]): ?[Option[A]] =
-    rs.foldRight(None.ok: ?[Option[A]]) { (ra, _) => for { a <- ra } yield Some(a) }
+    rs.foldRight(None.ok: ?[Option[A]]) { 
+      (ra, _) => for { 
+                  a <- ra 
+                } yield Some(a) 
+    }
 }
 
 

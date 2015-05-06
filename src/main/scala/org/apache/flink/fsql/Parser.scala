@@ -412,10 +412,37 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
 
 }
 
-object TestFsql extends FsqlParser{
+/*object TestFsql extends FsqlParser{
   def main(args: Array[String]) {
     printCreateSchemaParser
     printCreateStreamParser
   }
-}
 
+  
+}*/
+
+object Test extends  FsqlParser {
+
+  def parser: (FsqlParser, String) => ?[Ast.Statement[Option[String]]] = (p: FsqlParser, s: String) => p.parseAllWith(p.stmt, s)
+
+  def main(args: Array[String]) {
+
+/*
+    println(parseAllWith(stmt, " select (age + p.hight) * 2 from person p where age >3 and hight <1 or weight = 2"))
+    println("-------" * 10)
+    */
+
+    println("#########" * 10)
+
+
+    val result = for {
+      stmt <- parser(new FsqlParser {}, "select id, s.speed, stream.time from stream [size 3]as s cross join stream2[size 3]")
+      //x <- Ast.resolvedStreams(stmt)
+      x = stmt.streams
+    } yield x
+
+    println(result)
+
+
+  }
+}
