@@ -252,12 +252,14 @@ private[fsql] object Ast {
     case s@Select(_,_,_,_) => resolveSelect(s)(stmt.streams)
   }
   
-  def resolveSelect (s: Select[Option[String]])(env: List[Stream] = List())= {
+  def resolveSelect (select: Select[Option[String]])(env: List[Stream] = List())= {
     val r = new ResolveEnv(env)
     for {
-      p <- r.resolveProj(s.projection)
-      s <- r.resolveStreamRef(s.streamReference)
-    } yield s
+      p <- r.resolveProj(select.projection)
+      s <- r.resolveStreamRef(select.streamReference)
+      w <- r.resolveWhereOpt(select.where)
+      g <- r.resolveGroupByOpt(select.groupBy)
+    } yield select.copy(projection =  p, streamReference =  s, where = w, groupBy = g)
   }
   
   
@@ -353,7 +355,7 @@ private[fsql] object Ast {
         ws <- resolveWindowedStream(wStream)
         j <- sequenceO(join map resolveJoin)
       } yield c.copy(windowedStream = ws, join = j)
-      //case d@DerivedStream(_, _, _) => ???
+      //TODO: case d@DerivedStream(_, _, _) => ???
     }
 
 
@@ -430,18 +432,21 @@ private[fsql] object Ast {
       case NamedColumnJoin(col) => NamedColumnJoin[Stream](col).ok
       case QualifiedJoin(p) => resolvePredicate(p) map {pre => QualifiedJoin[Stream](pre)}
     }
-
-
-    //where
     
+    // where
+    def resolveWhereOpt(where : Option[Where[Option[String]]]) = sequenceO( where map resolveWhere)
+    def resolveWhere(where: Where[Option[String]]) = resolvePredicate(where.predicate) map Where.apply
     
     //groupBy
+    def resolveGroupBy(groupBy: GroupBy[Option[String]]) = for {
+      t <- sequence(groupBy.exprs map resolve)
+      h <- resolveHavingOpt(groupBy.having)
+    } yield groupBy.copy(exprs = t, having = h)
+    def resolveGroupByOpt(groupBy: Option[GroupBy[Option[String]]]) = sequenceO(groupBy map resolveGroupBy)
 
-
-    
+    def resolveHaving(having: Having[Option[String]]) = resolvePredicate(having.predicate) map Having.apply
+    def resolveHavingOpt(having: Option[Having[Option[String]]]) = sequenceO(having map resolveHaving)
   }
-
-
 }
 
 
