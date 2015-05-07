@@ -120,7 +120,7 @@ private[fsql] object Ast {
   case class WindowSpec[T](window: Window[T], every: Option[Every[T]], partition: Option[Partition[T]])
   case class Window[T](policyBased: PolicyBased[T])
   case class Every[T](policyBased: PolicyBased[T])
-  case class Partition[T](field: Named[T])
+  case class Partition[T](field: Column[T])
   case class PolicyBased[T] (value: Int, timeUnit: Option[String], onField: Option[Column[T]])
 
 
@@ -128,7 +128,7 @@ private[fsql] object Ast {
    * * JOIN
    */
   
-  case class Join[T] (stream: StreamReferences[T], JoinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc) {}
+  case class Join[T] (stream: StreamReferences[T], joinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc) {}
   
   sealed trait JoinDesc
   case object Cross extends JoinDesc
@@ -201,7 +201,7 @@ private[fsql] object Ast {
   case class Not[T](p: Predicate[T]) extends Predicate[T]
   
   sealed trait SimplePredicate[T] extends Predicate[T]
-  case class Comaprison0[T](boolExpr: Expr[T]) extends SimplePredicate[T]
+  case class Comparison0[T](boolExpr: Expr[T]) extends SimplePredicate[T]
   case class Comparison1[T](expr: Expr[T], op: Operator1) extends SimplePredicate[T]
   case class Comparison2[T](lhs: Expr[T], op: Operator2, rhs: Expr[T]) extends SimplePredicate[T]
   case class Comparison3[T](t: Expr[T], op: Operator3, value1: Expr[T], value2: Expr[T]) extends SimplePredicate[T]
@@ -224,7 +224,6 @@ private[fsql] object Ast {
    *                            RESOLVE
    * * 
    * * *************************************************************************************/
-
 
   trait Resolved {
     type Expr = Ast.Expr[Stream]
@@ -257,82 +256,190 @@ private[fsql] object Ast {
     val r = new ResolveEnv(env)
     for {
       p <- r.resolveProj(s.projection)
-      //s <- r.resolveStreamRef(s.streamReference)
-    } yield p
+      s <- r.resolveStreamRef(s.streamReference)
+    } yield s
   }
   
   
   
-  
-  private class ResolveEnv (env : List[Stream]){
-    def resolve(expr : Expr[Option[String]]): ?[Expr[Stream]] = expr  match {
-      case c@Column(_,_) => resolveColumn(c)
+  private class ResolveEnv (env : List[Stream]) {
+
+    // Basic Elements
+    def resolve(expr: Expr[Option[String]]): ?[Expr[Stream]] = expr match {
+      case c@Column(_, _) => resolveColumn(c)
+      case AllColumns(s) => resolveAllColumns(s)
+      case (f@Function(_, ps)) => resolveFunc(f)
+      case ArithExpr(lhs, op, rhs) =>
+        for (l <- resolve(lhs); r <- resolve(rhs)) yield ArithExpr(l, op, r)
+      case Constant(tpe, value) => Constant[Stream](tpe, value).ok
+      case (c@Case(_, _)) => resolveCase(c)
+
     }
+
+    def resolveNamed(n: Named[Option[String]]): ?[Named[Stream]] =
+      resolve(n.expr) map (e => n.copy(expr = e))
+
+    /*def resolveColumn(col: Column[Option[String]]  , streamName :String): ?[Column[Stream]] = {
+      env find (_.name == streamName) map (s => col.copy(stream = s)) orFail ("Column references unknown")
+    }*/
+
+    def resolveColumn(col: Column[Option[String]])(implicit streamName: String = ""): ?[Column[Stream]] = {
+
+      env find {
+        s =>
+          (col.stream, s.alias) match {
+            case (Some(ref), None) => println(ref, s.name, ref == s.name); ref == s.name
+            case (Some(ref), Some(alias)) => (ref == s.name) || (ref == alias)
+            case (None, _) => true // assume that we take the first stream
+            // if there are more than 1, not working
+          }
+      } map (s => col.copy(stream = s)) orFail ("Column references unknown")
+    }
+
+    def resolveAllColumns(streamRef: Option[String]) = streamRef match {
+      case Some(ref) =>
+        (env.find(s => ref == s.name || s.alias.map(_ == ref).getOrElse(false)) orFail ("Unknown stream '" + ref + "'")) map (AllColumns(_))
+      case None => AllColumns(env.head).ok
+    }
+
+    def resolveCase(c: Case[Option[String]]) = for {
+      predicates <- sequence(c.conditions map { case (x, _) => resolvePredicate(x)})
+      results <- sequence(c.conditions map { case (_, x) => resolve(x)})
+      elze <- sequenceO(c.elze map resolve)
+    } yield Case(predicates zip results, elze)
+
+    def resolveFunc(f: Function[Option[String]]) =
+      sequence(f.params map resolve) map (ps => f.copy(params = ps))
+
+    def resolvePredicate(p: Predicate[Option[String]]): ?[Predicate[Stream]] = p match {
+      /*
+        case class And[T](p1: Predicate[T], p2:Predicate[T]) extends  Predicate[T]
+        case class Or[T](p1: Predicate[T], p2:Predicate[T]) extends  Predicate[T]
+        case class Not[T](p: Predicate[T]) extends Predicate[T]
+  
+        sealed trait SimplePredicate[T] extends Predicate[T]
+        case class Comaprison0[T](boolExpr: Expr[T]) extends SimplePredicate[T]
+        case class Comparison1[T](expr: Expr[T], op: Operator1) extends SimplePredicate[T]
+        case class Comparison2[T](lhs: Expr[T], op: Operator2, rhs: Expr[T]) extends SimplePredicate[T]
+        case class Comparison3[T](t: Expr[T], op: Operator3, value1: Expr[T], value2: Expr[T]) extends SimplePredicate[T]
+      */
+      case simplePre: SimplePredicate[Option[String]] => resolveSimplePredicate(simplePre)
+      case And(e1, e2) =>
+        for {r1 <- resolvePredicate(e1); r2 <- resolvePredicate(e2)} yield And(r1, r2)
+      case Or(e1, e2) =>
+        for {r1 <- resolvePredicate(e1); r2 <- resolvePredicate(e2)} yield Or(r1, r2)
+      case Not(p) => for {r <- resolvePredicate(p)} yield Not(r)
+    }
+
+    def resolveSimplePredicate(predicate: SimplePredicate[Option[String]]): ?[Ast.Predicate[Ast.Stream]] = predicate match {
+      case p@Comparison0(b) => resolve(b) map (b => p.copy(boolExpr = b))
+      case p@Comparison1(e1, op) =>
+        resolve(e1) map (e => p.copy(expr = e))
+      case p@Comparison2(e1, op, e2) =>
+        for {l <- resolve(e1); r <- resolve(e2)} yield p.copy(lhs = l, rhs = r)
+      case p@Comparison3(e1, op, e2, e3) =>
+        for {r1 <- resolve(e1); r2 <- resolve(e2); r3 <- resolve(e3)} yield p.copy(t = r1, value1 = r2, value2 = r3)
+    }
+
 
     //projection
-    def resolveProj(proj : List[Named[Option[String]]]) : ?[List[Named[Stream]]]
+    def resolveProj(proj: List[Named[Option[String]]]): ?[List[Named[Stream]]]
     = sequence(proj map resolveNamed)
-/*
+
 
     //StreamReference
-    def resolveStreamRef(streamRefs: StreamReferences[Option[String]])= streamRefs match {
-      case c@ConcreteStream(_,_,_) => ???
-      case d@DerivedStream(_,_,_) => ???
-      
+    def resolveStreamRef(streamRefs: StreamReferences[Option[String]]) = streamRefs match {
+      case c@ConcreteStream(wStream, join) => for {
+        ws <- resolveWindowedStream(wStream)
+        j <- sequenceO(join map resolveJoin)
+      } yield c.copy(windowedStream = ws, join = j)
+      //case d@DerivedStream(_, _, _) => ???
     }
 
-    def resolvePolicyBased(based: PolicyBased[Option[String]]): ?[PolicyBased[Stream]] = 
-        based.onField match {
-          case Some(field) => resolveNamed(field) map (f => based.copy(onField =  Some(f)))
-          case None => ???
-          
+
+    //resolveWindowedStream
+    def resolveWindowedStream(windowedStream: WindowedStream[Option[String]]): ?[WindowedStream[Stream]] = {
+      val thisStream: Stream = windowedStream.stream
+      // resolveWindowedSpec
+      /*def resolveWindowedSpec( windowedStream : WindowedStream[Option[String]]) : ?[Option[WindowSpec[Stream]]] =
+        windowedStream.windowSpec.fold((None.ok: ?[Option[WindowSpec[Stream]]])) {
+          spec => for {
+            w <- resolveWindowing(spec.window)
+            e <- resolveEvery(spec.every)
+            p <- resolvePartition(spec.partition)
+
+          } yield Some(spec.copy(window = w, every =  e , partition =  p))
+    }*/
+      def resolveWindowSpec(winSpec: Option[WindowSpec[Option[String]]]): ?[Option[WindowSpec[Stream]]] = {
+        sequenceO(winSpec map {
+          spec => for {
+            w <- resolveWindowing(spec.window)
+            e <- resolveEvery(spec.every)
+            p <- resolvePartition(spec.partition)
+          } yield (spec.copy(window = w, every = e, partition = p))
         }
+        )
+      }
+
+      def resolvePolicyBased(based: PolicyBased[Option[String]]): ?[PolicyBased[Stream]] =
+      /*based.onField match {
+      case Some(field) => resolveColumn(field) map (f => based.copy(onField =  Some(f)))
+      case None => PolicyBased[Stream](based.value,based.timeUnit,None).ok
+    }*/
+        sequenceO(based.onField map { f => resolveColumn(f)(thisStream.name)}) map (o => based.copy(onField = o))
+
+      def resolveWindowing(window: Window[Option[String]]): ?[Window[Stream]] = {
+        resolvePolicyBased(window.policyBased) map (p => window.copy(policyBased = p))
+      }
+
+      def resolveEvery(maybeEvery: Option[Every[Option[String]]]): ?[Option[Every[Stream]]] =
+      /*
+      maybeEvery.fold(None.ok: ?[Option[Every[Stream]]] ){
+        every =>
+          resolvePolicyBased(every.policyBased) map (p => Some((every.copy( policyBased = p))))
+      }
+    */
+        sequenceO(maybeEvery map { e => resolvePolicyBased(e.policyBased) map (p => e.copy(policyBased = p))})
+
+      def resolvePartition(maybePartition: Option[Partition[Option[String]]]): ?[Option[Partition[Stream]]] =
+      /*maybePartition.fold(None.ok: ?[Option[Partition[Stream]]] ){
+      partition =>
+        resolveColumn(partition.field) map (f => Some((Partition(f))))
+    }*/
+        sequenceO(maybePartition map { p => resolveColumn(p.field)(thisStream.name) map Partition.apply})
 
 
-    def resolveWindowing(window: Window[Option[String]]) : ?[Window[Stream]] = {
-      resolvePolicyBased(window.policyBased) map (p => window.copy( policyBased = p))
+      // end  resolveWindowedSpec
+
+      resolveWindowSpec(windowedStream.windowSpec) map (spec => windowedStream.copy(windowSpec = spec))
+
+    } // end resolveWindowedStream
+
+    //resolveJoin
+    def resolveJoin(join: Join[Option[String]]): ?[Join[Stream]] = {
+      for {
+      // streamRef
+      // joinSpec
+        s <- resolveStreamRef(join.stream)
+        j <- sequenceO(join.joinSpec map resolveJoinSpec)
+      } yield join.copy(stream = s, joinSpec = j)
+      
     }
 
-    def resolveWindowedSpec( windowedStream : WindowedStream[Option[String]]) : ?[Option[WindowSpec[Stream]]] =
-      windowedStream.windowSpec.fold((None.ok)) {
-        spec => for {
-          w <- resolveWindowing(spec.window)
-          e <- resolveEvery(spec.every  )
-          p <- resolvePartition(spec.partition)
-          
-        } yield spec.copy(window = w, every =  e , partition =  p)
-      }
-      
-    
-    
+    def resolveJoinSpec(spec: JoinSpec[Option[String]]): ?[JoinSpec[Stream]] = spec match {
+      case NamedColumnJoin(col) => NamedColumnJoin[Stream](col).ok
+      case QualifiedJoin(p) => resolvePredicate(p) map {pre => QualifiedJoin[Stream](pre)}
+    }
+
+
     //where
     
     
     //groupBy
 
-*/
-    def resolveNamed(n: Named[Option[String]]) : ?[Named[Stream]]=
-      resolve(n.expr) map (e => n.copy(expr =  e))
 
-
-
-    def resolveColumn(col: Column[Option[String]]): ?[Column[Stream]] = {
-      env find { 
-        s =>
-          (col.stream, s.alias) match {
-            case (Some(ref), None) => println (ref, s.name,ref == s.name);ref == s.name
-            case (Some(ref), Some(alias)) => (ref == s.name) || (ref == alias)
-            case (None, _) => true // assume that we take the first stream
-                                   // if there are more than 1, not working
-          }
-      } map ( s => col.copy(stream = s)) orFail("Column references unknown")
-    }
-    
     
   }
-
-
-
 
 
 }

@@ -188,7 +188,7 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
     case i ~ t ~ c => PolicyBased(i, t, c)
   }
 
-  lazy val partition = "partitioned".i ~> "on".i ~> named ^^ Partition.apply
+  lazy val partition = "partitioned".i ~> "on".i ~> column ^^ Partition.apply
 
   
   // derivedStream
@@ -437,13 +437,14 @@ object Test2 extends FsqlParser {
 
     val result = for {
       //stmt <- parser(new FsqlParser {}, "select id, s.speed, stream.time from stream [size 3]as s cross join stream2[size 3]")
-      stmt <- parser(new FsqlParser {}, "select id,  s.speed, stream.time from stream as s ")
+      stmt <- parser(new FsqlParser {}, "select id from stream [size 3 on time] left join suoi [size 3 on time] using time")
 
       x <- Ast.resolvedStreams(stmt)
       //x = stmt.streams
-    } yield x
 
-    println(result)
+    } yield (stmt,x)
+
+    println(result.getOrElse("fail"))
 
 
   }

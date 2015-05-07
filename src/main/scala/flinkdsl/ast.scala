@@ -300,6 +300,8 @@ private[flinkdsl] object Ast {
       } yield f.copy(subselect = s, join = j)
     }
 
+    
+    
     def resolveJoin(join: Join[Option[String]]) = for {
       t <- resolveTableRef(join.table)
       j <- sequenceO(join.joinType map resolveJoinType)
@@ -307,7 +309,7 @@ private[flinkdsl] object Ast {
 
     def resolveJoinType(t: JoinType[Option[String]]): ?[JoinType[Table]] = t match {
       case QualifiedJoin(e) => resolveExpr(e) map QualifiedJoin.apply
-      case NamedColumnsJoin(cs) => NamedColumnsJoin(cs).ok
+      case NamedColumnsJoin(cs) => NamedColumnsJoin[Table](cs).ok
     }
     def resolveWhere(where: Where[Option[String]]) = resolveExpr(where.expr) map Where.apply
     def resolveWhereOpt(where: Option[Where[Option[String]]]) = sequenceO(where map resolveWhere)

@@ -69,7 +69,6 @@ private[flinkdsl] abstract sealed class ?[+A] { self =>
   def foreach[U](f: A => U): Unit
   def fold[B](ifFail: Failure[A] => B, f: A => B): B
   def getOrElse[B >: A](default: => B): B
-  //def get[B>:A] :B
   def filter(p: A => Boolean): ?[A]
   def withFilter(p: A => Boolean): WithFilter = new WithFilter(p)
   class WithFilter(p: A => Boolean) {
@@ -87,7 +86,6 @@ private[flinkdsl] final case class Ok[+A](a: A) extends ?[A] {
   def foreach[U](f: A => U) = { f(a); () }
   def fold[B](ifFail: Failure[A] => B, f: A => B) = f(a)
   def getOrElse[B >: A](default: => B) = a
-  //def get[B>:A] = a
   def filter(p: A => Boolean) = if (p(a)) this else fail("filter on ?[_] failed")
 }
 
@@ -98,6 +96,5 @@ private[flinkdsl] final case class Failure[+A](message: String, column: Int, lin
   def fold[B](ifFail: Failure[A] => B, f: A => B) = ifFail(this)
   def getOrElse[B >: A](default: => B) = default
   def filter(p: A => Boolean) = this
-  
 }
 }
