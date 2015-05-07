@@ -433,21 +433,21 @@ object Test2 extends FsqlParser {
 
     println("#########" * 10)
 
-
+    val timer = Timer(true)
     val result = for {
       //stmt <- parser(new FsqlParser {}, "select id, s.speed, stream.time from stream [size 3]as s cross join stream2[size 3]")
       //stmt <- parser(new FsqlParser {}, "select id from stream [size 3] as s1 left join suoi [size 3] as s2 on s1.time=s2.thoigian")
-    //stmt <- parser(new FsqlParser {}, "create stream myStream(time long) as (select p.id from oldStream as p)")
-//    stmt <- parser(new FsqlParser {}, "create schema myStream oldschema ")
-      stmt <- parser(new FsqlParser {}, "select id from (select p.id from oldStream as p) as q")
+      //stmt <- parser(new FsqlParser {}, "create stream myStream(time long) as (select p.id from oldStream as p)")
+      //stmt <- parser(new FsqlParser {}, "create schema myStream oldschema "),
+      //stmt <- parser(new FsqlParser {}, "select id from (select p.id from oldStream as p) as q")
+      stmt <- timer("parser", 2,  parser(new FsqlParser {}, "select id from stream as q"))
 
-      x <- Ast.resolvedStreams(stmt)
+      x <- timer("resolve",3,Ast.resolvedStreams(stmt))
     //y = stmt.streams
 
     } yield (x)
 
     //println(result.getOrElse("fail"))
     println(result)
-
   }
 }

@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a11fae24-c447-403d-9676-7582ac8a12fe" name="Default" comment="run Resolve">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/database.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/jdbc.scala_" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/timer.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/typer.scala_" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/typesigdsl.scala_" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Parser.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Flink-DSL.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,58 +31,102 @@
     <favorites_list name="Flink-DSL" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4585774">
+    <splitter split-orientation="horizontal" split-proportion="0.4473684">
       <split-first>
         <leaf>
-          <file leaf-file-name="parser.scala" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="parser.scala" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/parser.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="5235" max-vertical-offset="5580">
-                  <caret line="349" column="19" selection-start-line="349" selection-start-column="19" selection-end-line="349" selection-end-column="19" />
+                <state vertical-scroll-proportion="0.375" vertical-offset="4986" max-vertical-offset="5535">
+                  <caret line="345" column="47" selection-start-line="345" selection-start-column="47" selection-end-line="345" selection-end-column="47" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ast.scala" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="database.scala" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/database.scala">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="57" max-vertical-offset="540">
+                  <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="typer.scala_" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/typer.scala_">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-3.4615386" vertical-offset="990" max-vertical-offset="5970">
+                  <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="package.scala" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/scala/sqltyped/package.scala">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="19.615385" vertical-offset="1020" max-vertical-offset="1410">
+                  <caret line="35" column="17" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="17" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="typesigdsl.scala_" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/typesigdsl.scala_">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1065">
+                  <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+                  <folding>
+                    <marker date="1431038975000" expanded="true" signature="25:131" placeholder="..." />
+                    <marker date="1431038975000" expanded="true" signature="164:2451" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="197:560" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="228:556" placeholder="..." />
+                    <marker date="1431038975000" expanded="true" signature="610:1078" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="641:1074" placeholder="..." />
+                    <marker date="1431038975000" expanded="true" signature="1097:1195" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="1485:1657" placeholder="..." />
+                    <marker date="1431038975000" expanded="true" signature="1506:1657" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="1564:1653" placeholder="..." />
+                    <marker date="1431038975000" expanded="true" signature="1607:1653" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="1717:1888" placeholder="..." />
+                    <marker date="1431038975000" expanded="true" signature="1730:1888" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="1788:1884" placeholder="..." />
+                    <marker date="1431038975000" expanded="true" signature="1811:1884" placeholder="{...}" />
+                    <marker date="1431038975000" expanded="true" signature="2360:2449" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="timer.scala" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/timer.scala">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+                  <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="jdbc.scala_" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/jdbc.scala_">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1740">
+                  <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ast.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.33333334" vertical-offset="1758" max-vertical-offset="4755">
+                <state vertical-scroll-proportion="0.0" vertical-offset="3885" max-vertical-offset="6570">
                   <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
-                  <folding>
-                    <element signature="e#95#163#0" expanded="false" />
-                    <element signature="e#226#1265#1" expanded="false" />
-                    <element signature="e#1386#2254#1" expanded="false" />
-                    <element signature="e#2389#2431#1" expanded="false" />
-                    <element signature="e#3767#4026#1" expanded="false" />
-                    <element signature="e#3773#4022#0" expanded="false" />
-                    <element signature="e#3865#4022#0" expanded="false" />
-                    <element signature="e#6262#6318#0" expanded="false" />
-                    <element signature="e#6507#6590#0" expanded="false" />
-                    <element signature="e#6840#6866#0" expanded="false" />
-                    <element signature="e#6955#7063#0" expanded="false" />
-                    <element signature="e#7430#7519#0" expanded="false" />
-                    <element signature="e#7554#7608#1" expanded="false" />
-                    <element signature="e#7700#7786#0" expanded="false" />
-                    <element signature="e#8933#9013#0" expanded="false" />
-                    <element signature="e#10273#10627#0" expanded="false" />
-                    <element signature="e#10337#10546#0" expanded="false" />
-                    <element signature="e#10352#10538#1" expanded="false" />
-                    <element signature="e#10633#10935#0" expanded="false" />
-                    <element signature="e#10683#10935#0" expanded="false" />
-                    <element signature="e#10732#10878#0" expanded="false" />
-                    <element signature="e#10941#11230#0" expanded="false" />
-                    <element signature="e#12029#12222#0" expanded="false" />
-                    <element signature="e#12646#12845#0" expanded="false" />
-                    <element signature="e#13395#13587#0" expanded="false" />
-                    <element signature="e#13462#13584#0" expanded="false" />
-                    <element signature="e#13691#14209#0" expanded="false" />
-                    <element signature="e#13750#14209#0" expanded="false" />
-                    <element signature="e#14215#14647#0" expanded="false" />
-                    <element signature="e#14270#14647#0" expanded="false" />
-                    <element signature="e#17126#17313#1" expanded="false" />
-                    <element signature="e#17130#17311#0" expanded="false" />
-                  </folding>
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -83,7 +134,7 @@
           <file leaf-file-name="package.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/package.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="538" max-vertical-offset="1575">
+                <state vertical-scroll-proportion="0.0" vertical-offset="1320" max-vertical-offset="1590">
                   <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
                   <folding />
                 </state>
@@ -97,7 +148,7 @@
           <file leaf-file-name="parserTest.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1290">
+                <state vertical-scroll-proportion="0.0" vertical-offset="824" max-vertical-offset="1290">
                   <caret line="53" column="94" selection-start-line="53" selection-start-column="94" selection-end-line="53" selection-end-column="94" />
                   <folding />
                 </state>
@@ -107,8 +158,8 @@
           <file leaf-file-name="parser.scala" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4217687" vertical-offset="6429" max-vertical-offset="6870">
-                  <caret line="441" column="50" selection-start-line="441" selection-start-column="50" selection-end-line="441" selection-end-column="50" />
+                <state vertical-scroll-proportion="2.1077282" vertical-offset="0" max-vertical-offset="6870">
+                  <caret line="60" column="41" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
                   <folding>
                     <element signature="e#31#67#0" expanded="true" />
                   </folding>
@@ -119,57 +170,9 @@
           <file leaf-file-name="Ast.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="10.153846" vertical-offset="3849" max-vertical-offset="4290">
-                  <caret line="385" column="0" selection-start-line="385" selection-start-column="0" selection-end-line="385" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#119#912#1" expanded="false" />
-                    <element signature="e#956#996#0" expanded="false" />
-                    <element signature="e#1097#1173#0" expanded="false" />
-                    <element signature="e#1642#1745#1" expanded="false" />
-                    <element signature="e#1827#1880#0" expanded="false" />
-                    <element signature="e#2524#2581#1" expanded="false" />
-                    <element signature="e#2701#2840#0" expanded="false" />
-                    <element signature="e#2959#3053#0" expanded="false" />
-                    <element signature="e#3270#3316#1" expanded="false" />
-                    <element signature="e#3328#3370#0" expanded="false" />
-                    <element signature="e#3697#3789#0" expanded="false" />
-                    <element signature="e#3843#3865#0" expanded="false" />
-                    <element signature="e#4219#4240#0" expanded="false" />
-                    <element signature="e#4635#4662#0" expanded="false" />
-                    <element signature="e#5341#5366#0" expanded="false" />
-                    <element signature="e#6027#6053#0" expanded="false" />
-                    <element signature="e#6097#6391#1" expanded="false" />
-                    <element signature="e#6103#6387#0" expanded="false" />
-                    <element signature="e#6216#6381#0" expanded="false" />
-                    <element signature="e#7166#7189#0" expanded="false" />
-                    <element signature="e#7300#7549#0" expanded="false" />
-                    <element signature="e#7568#8240#1" expanded="false" />
-                    <element signature="e#9698#10168#0" expanded="false" />
-                    <element signature="e#9779#10168#0" expanded="false" />
-                    <element signature="e#10292#10500#0" expanded="false" />
-                    <element signature="e#10506#11071#0" expanded="false" />
-                    <element signature="e#10626#10996#0" expanded="false" />
-                    <element signature="e#10651#10988#1" expanded="false" />
-                    <element signature="e#10884#10923#0" expanded="false" />
-                    <element signature="e#11077#11359#0" expanded="false" />
-                    <element signature="e#11128#11359#0" expanded="false" />
-                    <element signature="e#11365#11662#0" expanded="false" />
-                    <element signature="e#11789#12967#0" expanded="false" />
-                    <element signature="e#11864#12967#0" expanded="false" />
-                    <element signature="e#11880#12581#0" expanded="false" />
-                    <element signature="e#12973#13538#0" expanded="false" />
-                    <element signature="e#13076#13538#0" expanded="false" />
-                    <element signature="e#14214#16793#0" expanded="false" />
-                    <element signature="e#14435#14874#0" expanded="false" />
-                    <element signature="e#14406#15273#0" expanded="false" />
-                    <element signature="e#15000#15265#0" expanded="false" />
-                    <element signature="e#15013#15255#0" expanded="false" />
-                    <element signature="e#15372#15567#0" expanded="false" />
-                    <element signature="e#15689#15859#0" expanded="false" />
-                    <element signature="e#15961#16150#0" expanded="false" />
-                    <element signature="e#16379#16539#0" expanded="false" />
-                    <element signature="e#16929#16941#0" expanded="false" />
-                  </folding>
+                <state vertical-scroll-proportion="0.0" vertical-offset="4199" max-vertical-offset="7350">
+                  <caret line="296" column="44" selection-start-line="296" selection-start-column="44" selection-end-line="296" selection-end-column="44" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -221,15 +224,24 @@
         <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/package.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/package.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/typer/jdbc.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/typesigdsl.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/typer.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/jdbc.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/TypeSigDSL.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/typeSigDSL.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/timer.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="x" value="4" />
+    <option name="y" value="23" />
+    <option name="width" value="1436" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -257,7 +269,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -346,37 +357,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="fsql" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Typers.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Flink-DSL" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Flink-DSL" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fsql" />
+              <option name="myItemId" value="sqltyped" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -405,9 +386,91 @@
               <option name="myItemId" value="fsql" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="package.scala" />
+              <option name="myItemId" value="Flink-DSL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Flink-DSL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsql" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="timer.scala" />
               <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Flink-DSL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Flink-DSL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fsql" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="parser.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Flink-DSL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Flink-DSL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flinkdsl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -427,6 +490,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -444,8 +508,8 @@
     <property name="recentsLimit" value="5" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../WORKSPACE/git/thesis/sqltyped" />
-    <property name="SearchEverywhereHistoryKey" value="buil&#9;FILE&#9;file:///Volumes/Data/EIT/Thesis/khoaluan/code/Flink-DSL/project/build.scala&#10;Test&#9;RUN_CONFIGURATION&#9;Test&#10;flatmap&#9;null&#9;null&#10;Option&#9;FILE&#9;jar:///Users/kidio/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.5-sources.jar!/scala/Option.scala&#10;calculator&#9;FILE&#9;file:///Users/kidio/IdeaProjects/Flink-DSL/.idea/modules/Calculator-build.iml&#10;calcu&#9;null&#9;null" />
-    <property name="FullScreen" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="sqlty&#9;null&#9;null&#10;buil&#9;FILE&#9;file:///Volumes/Data/EIT/Thesis/khoaluan/code/Flink-DSL/project/build.scala&#10;Test&#9;RUN_CONFIGURATION&#9;Test&#10;flatmap&#9;null&#9;null&#10;Option&#9;FILE&#9;jar:///Users/kidio/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.5-sources.jar!/scala/Option.scala&#10;calculator&#9;FILE&#9;file:///Users/kidio/IdeaProjects/Flink-DSL/.idea/modules/Calculator-build.iml&#10;calcu&#9;null&#9;null" />
+    <property name="FullScreen" value="false" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -455,6 +519,7 @@
       <recent name="flinkdsl" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql" />
       <recent name="$PROJECT_DIR$/src/main/scala/flinkdsl" />
       <recent name="$PROJECT_DIR$/src/main/scala" />
     </key>
@@ -844,6 +909,21 @@
       <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <extension name="scalaCoverage" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -862,21 +942,6 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <extension name="scalaCoverage" />
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
     <list size="5">
@@ -975,15 +1040,16 @@
       <workItem from="1430877562911" duration="651000" />
       <workItem from="1430918661437" duration="19434000" />
       <workItem from="1430988313723" duration="2971000" />
-      <workItem from="1430991381744" duration="12277000" />
+      <workItem from="1430991381744" duration="14956000" />
+      <workItem from="1431033490291" duration="5518000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192863000" />
+    <option name="totallyTimeSpent" value="201060000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="4" y="23" width="1436" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -991,28 +1057,28 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3681592" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3674776" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33493283" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4800995" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47887325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14183381" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14398281" sideWeight="0.49895614" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3681592" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23563218" sideWeight="0.49895614" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3674776" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17621776" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1042,52 +1108,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/src.zip!/java/lang/Class.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3321918" vertical-offset="2671" max-vertical-offset="52950">
-          <caret line="258" column="0" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/modules/Flink-DSL-build.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1815">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/modules/Flink-DSL.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.2609457" vertical-offset="149" max-vertical-offset="720">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/sqltyped/App.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="854" max-vertical-offset="1425">
-          <caret line="31" column="6" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/sqltyped/ast.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2850">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/sqltyped/parser.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4432" max-vertical-offset="4980">
           <caret line="316" column="4" selection-start-line="316" selection-start-column="4" selection-end-line="316" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/sqltyped/package.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="172" max-vertical-offset="1425">
-          <caret line="25" column="67" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -1336,19 +1360,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/parser.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4917" max-vertical-offset="5535">
-          <caret line="349" column="19" selection-start-line="349" selection-start-column="19" selection-end-line="349" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.5-sources.jar!/scala/Option.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.7880086" vertical-offset="2200" max-vertical-offset="5220">
           <caret line="97" column="22" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1372,6 +1387,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/database.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -1384,110 +1406,94 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/sqltyped/package.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="19.615385" vertical-offset="1020" max-vertical-offset="1410">
+          <caret line="35" column="17" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/typesigdsl.scala_">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="21" max-vertical-offset="1065">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding>
+            <marker date="1431038975000" expanded="true" signature="25:131" placeholder="..." />
+            <marker date="1431038975000" expanded="true" signature="164:2451" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="197:560" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="228:556" placeholder="..." />
+            <marker date="1431038975000" expanded="true" signature="610:1078" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="641:1074" placeholder="..." />
+            <marker date="1431038975000" expanded="true" signature="1097:1195" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="1485:1657" placeholder="..." />
+            <marker date="1431038975000" expanded="true" signature="1506:1657" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="1564:1653" placeholder="..." />
+            <marker date="1431038975000" expanded="true" signature="1607:1653" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="1717:1888" placeholder="..." />
+            <marker date="1431038975000" expanded="true" signature="1730:1888" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="1788:1884" placeholder="..." />
+            <marker date="1431038975000" expanded="true" signature="1811:1884" placeholder="{...}" />
+            <marker date="1431038975000" expanded="true" signature="2360:2449" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/typer.scala_">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.4615386" vertical-offset="990" max-vertical-offset="5970">
+          <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/jdbc.scala_">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1740">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3885" max-vertical-offset="6570">
+          <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/timer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="10.153846" vertical-offset="3849" max-vertical-offset="4290">
-          <caret line="385" column="0" selection-start-line="385" selection-start-column="0" selection-end-line="385" selection-end-column="0" />
-          <folding>
-            <element signature="e#119#912#1" expanded="false" />
-            <element signature="e#956#996#0" expanded="false" />
-            <element signature="e#1097#1173#0" expanded="false" />
-            <element signature="e#1642#1745#1" expanded="false" />
-            <element signature="e#1827#1880#0" expanded="false" />
-            <element signature="e#2524#2581#1" expanded="false" />
-            <element signature="e#2701#2840#0" expanded="false" />
-            <element signature="e#2959#3053#0" expanded="false" />
-            <element signature="e#3270#3316#1" expanded="false" />
-            <element signature="e#3328#3370#0" expanded="false" />
-            <element signature="e#3697#3789#0" expanded="false" />
-            <element signature="e#3843#3865#0" expanded="false" />
-            <element signature="e#4219#4240#0" expanded="false" />
-            <element signature="e#4635#4662#0" expanded="false" />
-            <element signature="e#5341#5366#0" expanded="false" />
-            <element signature="e#6027#6053#0" expanded="false" />
-            <element signature="e#6097#6391#1" expanded="false" />
-            <element signature="e#6103#6387#0" expanded="false" />
-            <element signature="e#6216#6381#0" expanded="false" />
-            <element signature="e#7166#7189#0" expanded="false" />
-            <element signature="e#7300#7549#0" expanded="false" />
-            <element signature="e#7568#8240#1" expanded="false" />
-            <element signature="e#9698#10168#0" expanded="false" />
-            <element signature="e#9779#10168#0" expanded="false" />
-            <element signature="e#10292#10500#0" expanded="false" />
-            <element signature="e#10506#11071#0" expanded="false" />
-            <element signature="e#10626#10996#0" expanded="false" />
-            <element signature="e#10651#10988#1" expanded="false" />
-            <element signature="e#10884#10923#0" expanded="false" />
-            <element signature="e#11077#11359#0" expanded="false" />
-            <element signature="e#11128#11359#0" expanded="false" />
-            <element signature="e#11365#11662#0" expanded="false" />
-            <element signature="e#11789#12967#0" expanded="false" />
-            <element signature="e#11864#12967#0" expanded="false" />
-            <element signature="e#11880#12581#0" expanded="false" />
-            <element signature="e#12973#13538#0" expanded="false" />
-            <element signature="e#13076#13538#0" expanded="false" />
-            <element signature="e#14214#16793#0" expanded="false" />
-            <element signature="e#14435#14874#0" expanded="false" />
-            <element signature="e#14406#15273#0" expanded="false" />
-            <element signature="e#15000#15265#0" expanded="false" />
-            <element signature="e#15013#15255#0" expanded="false" />
-            <element signature="e#15372#15567#0" expanded="false" />
-            <element signature="e#15689#15859#0" expanded="false" />
-            <element signature="e#15961#16150#0" expanded="false" />
-            <element signature="e#16379#16539#0" expanded="false" />
-            <element signature="e#16929#16941#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="4199" max-vertical-offset="7350">
+          <caret line="296" column="44" selection-start-line="296" selection-start-column="44" selection-end-line="296" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4217687" vertical-offset="6429" max-vertical-offset="6870">
-          <caret line="441" column="50" selection-start-line="441" selection-start-column="50" selection-end-line="441" selection-end-column="50" />
+        <state vertical-scroll-proportion="2.1077282" vertical-offset="0" max-vertical-offset="6870">
+          <caret line="60" column="41" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
           <folding>
             <element signature="e#31#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/parser.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="1758" max-vertical-offset="4755">
-          <caret line="198" column="13" selection-start-line="198" selection-start-column="13" selection-end-line="198" selection-end-column="13" />
-          <folding>
-            <element signature="e#95#163#0" expanded="false" />
-            <element signature="e#226#1265#1" expanded="false" />
-            <element signature="e#1386#2254#1" expanded="false" />
-            <element signature="e#2389#2431#1" expanded="false" />
-            <element signature="e#3767#4026#1" expanded="false" />
-            <element signature="e#3773#4022#0" expanded="false" />
-            <element signature="e#3865#4022#0" expanded="false" />
-            <element signature="e#6262#6318#0" expanded="false" />
-            <element signature="e#6507#6590#0" expanded="false" />
-            <element signature="e#6840#6866#0" expanded="false" />
-            <element signature="e#6955#7063#0" expanded="false" />
-            <element signature="e#7430#7519#0" expanded="false" />
-            <element signature="e#7554#7608#1" expanded="false" />
-            <element signature="e#7700#7786#0" expanded="false" />
-            <element signature="e#8933#9013#0" expanded="false" />
-            <element signature="e#10273#10627#0" expanded="false" />
-            <element signature="e#10337#10546#0" expanded="false" />
-            <element signature="e#10352#10538#1" expanded="false" />
-            <element signature="e#10633#10935#0" expanded="false" />
-            <element signature="e#10683#10935#0" expanded="false" />
-            <element signature="e#10732#10878#0" expanded="false" />
-            <element signature="e#10941#11230#0" expanded="false" />
-            <element signature="e#12029#12222#0" expanded="false" />
-            <element signature="e#12646#12845#0" expanded="false" />
-            <element signature="e#13395#13587#0" expanded="false" />
-            <element signature="e#13462#13584#0" expanded="false" />
-            <element signature="e#13691#14209#0" expanded="false" />
-            <element signature="e#13750#14209#0" expanded="false" />
-            <element signature="e#14215#14647#0" expanded="false" />
-            <element signature="e#14270#14647#0" expanded="false" />
-            <element signature="e#17126#17313#1" expanded="false" />
-            <element signature="e#17130#17311#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.375" vertical-offset="4986" max-vertical-offset="5535">
+          <caret line="345" column="47" selection-start-line="345" selection-start-column="47" selection-end-line="345" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

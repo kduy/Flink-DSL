@@ -297,6 +297,8 @@ private[fsql] object Ast {
         for (l <- resolve(lhs); r <- resolve(rhs)) yield ArithExpr(l, op, r)
       case Constant(tpe, value) => Constant[Stream](tpe, value).ok
       case (c@Case(_, _)) => resolveCase(c)
+      case Input() => Input[Stream]().ok
+
 
     }
 
