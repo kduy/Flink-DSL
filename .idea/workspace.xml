@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a11fae24-c447-403d-9676-7582ac8a12fe" name="Default" comment="run Resolve">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Parser.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/flinkdsl/package.scala" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/package.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala" afterPath="$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="a11fae24-c447-403d-9676-7582ac8a12fe" name="Default" comment="run Resolve" />
     <ignored path="Flink-DSL.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -152,7 +145,7 @@
           <file leaf-file-name="Ast.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="2815" max-vertical-offset="3435">
+                <state vertical-scroll-proportion="0.0" vertical-offset="880" max-vertical-offset="3435">
                   <caret line="130" column="13" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
                   <folding>
                     <element signature="e#119#912#1" expanded="false" />
@@ -1016,12 +1009,12 @@
       <workItem from="1430877562911" duration="651000" />
       <workItem from="1430918661437" duration="19434000" />
       <workItem from="1430988313723" duration="2971000" />
-      <workItem from="1430991381744" duration="5849000" />
+      <workItem from="1430991381744" duration="5974000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186435000" />
+    <option name="totallyTimeSpent" value="186560000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
