@@ -34,7 +34,7 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
    */
 
   lazy val createSchemaStmtSyntax: Parser[Statement] = "create".i ~> "schema".i ~> ident ~ new_schema ~ opt("extends".i ~> ident) ^^ {
-    case i ~ n ~ e => createSchema(i, n, e)
+    case i ~ n ~ e => CreateSchema(i, n, e)
   }
 
   lazy val typedColumn = (ident ~ dataType) ^^ {
@@ -65,15 +65,14 @@ trait FsqlParser extends RegexParsers with PackratParsers with Ast.Unresolved {
     }
 
   lazy val source: Parser[Source] = raw_source | derived_source
-  // TODO: derived_source should be subselect
-  lazy val derived_source = "as".i ~> integer ^^ { case i => derivedSource[Option[String]](i)}
+  lazy val derived_source = "as".i~> subselect ^^ (s => DerivedSource(s.select))
   lazy val raw_source = "source".i ~> (host_source | file_source)// stream_source| ) //TODO
   lazy val host_source = "host" ~> "(" ~> stringLit ~ "," ~ integer <~ ")" ^^ {
-    case h ~ _ ~ p => hostSource[Option[String]](h, p)
+    case h ~ _ ~ p => HostSource[Option[String]](h, p)
 
   }
   lazy val file_source = "file" ~> "(" ~> stringLit <~ ")" ^^ {
-    case path => fileSource[Option[String]](path)
+    case path => FileSource[Option[String]](path)
   }
 
   /**
@@ -437,15 +436,16 @@ object Test2 extends FsqlParser {
 
     val result = for {
       //stmt <- parser(new FsqlParser {}, "select id, s.speed, stream.time from stream [size 3]as s cross join stream2[size 3]")
-      stmt <- parser(new FsqlParser {}, "select id from stream [size 3] as s1 left join suoi [size 3] as s2 on s1.time=s2.thoigian")
+      //stmt <- parser(new FsqlParser {}, "select id from stream [size 3] as s1 left join suoi [size 3] as s2 on s1.time=s2.thoigian")
+    stmt <- parser(new FsqlParser {}, "create stream myStream(time long) as (select p.id from oldStream as p)")
 
-      x <- Ast.resolvedStreams(stmt)
-      //x = stmt.streams
+    x <- Ast.resolvedStreams(stmt)
+    //y = stmt.streams
 
-    } yield (stmt,x)
+    } yield (x)
 
-    println(result.getOrElse("fail"))
-
+    //println(result.getOrElse("fail"))
+    println(result)
 
   }
 }

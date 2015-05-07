@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a11fae24-c447-403d-9676-7582ac8a12fe" name="Default" comment="run Resolve">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala" afterPath="$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" />
     </list>
     <ignored path="Flink-DSL.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,7 +25,7 @@
     <favorites_list name="Flink-DSL" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5824268">
+    <splitter split-orientation="horizontal" split-proportion="0.4585774">
       <split-first>
         <leaf>
           <file leaf-file-name="parser.scala" pinned="false" current="false" current-in-tab="false">
@@ -41,8 +41,8 @@
           <file leaf-file-name="ast.scala" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.40136054" vertical-offset="2883" max-vertical-offset="4395">
-                  <caret line="322" column="4" selection-start-line="320" selection-start-column="4" selection-end-line="322" selection-end-column="4" />
+                <state vertical-scroll-proportion="0.28798187" vertical-offset="3623" max-vertical-offset="4725">
+                  <caret line="367" column="9" selection-start-line="367" selection-start-column="8" selection-end-line="367" selection-end-column="9" />
                   <folding>
                     <element signature="e#95#163#0" expanded="false" />
                     <element signature="e#226#1265#1" expanded="false" />
@@ -51,7 +51,6 @@
                     <element signature="e#3767#4026#1" expanded="false" />
                     <element signature="e#3773#4022#0" expanded="false" />
                     <element signature="e#3865#4022#0" expanded="false" />
-                    <element signature="e#4806#4863#1" expanded="false" />
                     <element signature="e#6262#6318#0" expanded="false" />
                     <element signature="e#6507#6590#0" expanded="false" />
                     <element signature="e#6840#6866#0" expanded="false" />
@@ -61,8 +60,6 @@
                     <element signature="e#7700#7786#0" expanded="false" />
                     <element signature="e#7899#7971#0" expanded="false" />
                     <element signature="e#8933#9013#0" expanded="false" />
-                    <element signature="e#9524#10267#0" expanded="false" />
-                    <element signature="e#9582#10267#0" expanded="false" />
                     <element signature="e#10273#10627#0" expanded="false" />
                     <element signature="e#10337#10546#0" expanded="false" />
                     <element signature="e#10352#10538#1" expanded="false" />
@@ -70,9 +67,6 @@
                     <element signature="e#10683#10935#0" expanded="false" />
                     <element signature="e#10732#10878#0" expanded="false" />
                     <element signature="e#10941#11230#0" expanded="false" />
-                    <element signature="e#11638#12013#0" expanded="false" />
-                    <element signature="e#11721#12013#0" expanded="false" />
-                    <element signature="e#11875#12007#0" expanded="false" />
                     <element signature="e#12029#12222#0" expanded="false" />
                     <element signature="e#12646#12845#0" expanded="false" />
                     <element signature="e#13395#13587#0" expanded="false" />
@@ -81,8 +75,8 @@
                     <element signature="e#13750#14209#0" expanded="false" />
                     <element signature="e#14215#14647#0" expanded="false" />
                     <element signature="e#14270#14647#0" expanded="false" />
-                    <element signature="e#17121#17308#1" expanded="false" />
-                    <element signature="e#17125#17306#0" expanded="false" />
+                    <element signature="e#17126#17313#1" expanded="false" />
+                    <element signature="e#17130#17311#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -102,21 +96,21 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="parserTest.scala" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="parserTest.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.51391864" vertical-offset="525" max-vertical-offset="1290">
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1290">
                   <caret line="53" column="94" selection-start-line="53" selection-start-column="94" selection-end-line="53" selection-end-column="94" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="parser.scala" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="parser.scala" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-7.1538463" vertical-offset="6399" max-vertical-offset="6840">
-                  <caret line="439" column="105" selection-start-line="439" selection-start-column="41" selection-end-line="439" selection-end-column="130" />
+                <state vertical-scroll-proportion="0.48979592" vertical-offset="6369" max-vertical-offset="6840">
+                  <caret line="439" column="108" selection-start-line="439" selection-start-column="108" selection-end-line="439" selection-end-column="108" />
                   <folding>
                     <element signature="e#31#67#0" expanded="true" />
                   </folding>
@@ -127,60 +121,56 @@
           <file leaf-file-name="Ast.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="3163" max-vertical-offset="3630">
-                  <caret line="448" column="3" selection-start-line="448" selection-start-column="3" selection-end-line="448" selection-end-column="3" />
+                <state vertical-scroll-proportion="46.5" vertical-offset="3759" max-vertical-offset="4200">
+                  <caret line="260" column="70" selection-start-line="260" selection-start-column="70" selection-end-line="260" selection-end-column="70" />
                   <folding>
                     <element signature="e#119#912#1" expanded="false" />
                     <element signature="e#956#996#0" expanded="false" />
-                    <element signature="e#1025#1085#1" expanded="false" />
                     <element signature="e#1097#1173#0" expanded="false" />
-                    <element signature="e#1455#1487#0" expanded="false" />
-                    <element signature="e#1662#1765#1" expanded="false" />
-                    <element signature="e#1847#1900#0" expanded="false" />
-                    <element signature="e#2036#2079#0" expanded="false" />
-                    <element signature="e#2337#2394#1" expanded="false" />
-                    <element signature="e#2514#2653#0" expanded="false" />
-                    <element signature="e#2772#2866#0" expanded="false" />
-                    <element signature="e#3083#3129#1" expanded="false" />
-                    <element signature="e#3141#3183#0" expanded="false" />
-                    <element signature="e#3510#3602#0" expanded="false" />
-                    <element signature="e#3656#3678#0" expanded="false" />
-                    <element signature="e#4032#4053#0" expanded="false" />
-                    <element signature="e#4448#4475#0" expanded="false" />
-                    <element signature="e#5154#5179#0" expanded="false" />
-                    <element signature="e#5840#5866#0" expanded="false" />
-                    <element signature="e#5910#6204#1" expanded="false" />
-                    <element signature="e#5916#6200#0" expanded="false" />
-                    <element signature="e#6029#6194#0" expanded="false" />
-                    <element signature="e#6979#7002#0" expanded="false" />
-                    <element signature="e#7113#7362#0" expanded="false" />
-                    <element signature="e#7381#8053#1" expanded="false" />
-                    <element signature="e#8734#9204#0" expanded="false" />
-                    <element signature="e#8815#9204#0" expanded="false" />
-                    <element signature="e#9328#9536#0" expanded="false" />
-                    <element signature="e#9542#10107#0" expanded="false" />
-                    <element signature="e#9662#10032#0" expanded="false" />
-                    <element signature="e#9687#10024#1" expanded="false" />
-                    <element signature="e#9920#9959#0" expanded="false" />
-                    <element signature="e#10113#10395#0" expanded="false" />
-                    <element signature="e#10164#10395#0" expanded="false" />
-                    <element signature="e#10401#10698#0" expanded="false" />
-                    <element signature="e#10825#12003#0" expanded="false" />
-                    <element signature="e#10900#12003#0" expanded="false" />
-                    <element signature="e#10916#11617#0" expanded="false" />
-                    <element signature="e#12009#12574#0" expanded="false" />
-                    <element signature="e#12112#12574#0" expanded="false" />
-                    <element signature="e#13084#15663#0" expanded="false" />
-                    <element signature="e#13305#13744#0" expanded="false" />
-                    <element signature="e#13276#14143#0" expanded="false" />
-                    <element signature="e#13870#14135#0" expanded="false" />
-                    <element signature="e#13883#14125#0" expanded="false" />
-                    <element signature="e#14242#14437#0" expanded="false" />
-                    <element signature="e#14559#14729#0" expanded="false" />
-                    <element signature="e#14831#15020#0" expanded="false" />
-                    <element signature="e#15249#15409#0" expanded="false" />
-                    <element signature="e#15698#15993#0" expanded="false" />
-                    <element signature="e#15799#15811#0" expanded="false" />
+                    <element signature="e#1642#1745#1" expanded="false" />
+                    <element signature="e#1827#1880#0" expanded="false" />
+                    <element signature="e#2524#2581#1" expanded="false" />
+                    <element signature="e#2701#2840#0" expanded="false" />
+                    <element signature="e#2959#3053#0" expanded="false" />
+                    <element signature="e#3270#3316#1" expanded="false" />
+                    <element signature="e#3328#3370#0" expanded="false" />
+                    <element signature="e#3697#3789#0" expanded="false" />
+                    <element signature="e#3843#3865#0" expanded="false" />
+                    <element signature="e#4219#4240#0" expanded="false" />
+                    <element signature="e#4635#4662#0" expanded="false" />
+                    <element signature="e#5341#5366#0" expanded="false" />
+                    <element signature="e#6027#6053#0" expanded="false" />
+                    <element signature="e#6097#6391#1" expanded="false" />
+                    <element signature="e#6103#6387#0" expanded="false" />
+                    <element signature="e#6216#6381#0" expanded="false" />
+                    <element signature="e#7166#7189#0" expanded="false" />
+                    <element signature="e#7300#7549#0" expanded="false" />
+                    <element signature="e#7568#8240#1" expanded="false" />
+                    <element signature="e#9698#10168#0" expanded="false" />
+                    <element signature="e#9779#10168#0" expanded="false" />
+                    <element signature="e#10292#10500#0" expanded="false" />
+                    <element signature="e#10506#11071#0" expanded="false" />
+                    <element signature="e#10626#10996#0" expanded="false" />
+                    <element signature="e#10651#10988#1" expanded="false" />
+                    <element signature="e#10884#10923#0" expanded="false" />
+                    <element signature="e#11077#11359#0" expanded="false" />
+                    <element signature="e#11128#11359#0" expanded="false" />
+                    <element signature="e#11365#11662#0" expanded="false" />
+                    <element signature="e#11789#12967#0" expanded="false" />
+                    <element signature="e#11864#12967#0" expanded="false" />
+                    <element signature="e#11880#12581#0" expanded="false" />
+                    <element signature="e#12973#13538#0" expanded="false" />
+                    <element signature="e#13076#13538#0" expanded="false" />
+                    <element signature="e#14048#16627#0" expanded="false" />
+                    <element signature="e#14269#14708#0" expanded="false" />
+                    <element signature="e#14240#15107#0" expanded="false" />
+                    <element signature="e#14834#15099#0" expanded="false" />
+                    <element signature="e#14847#15089#0" expanded="false" />
+                    <element signature="e#15206#15401#0" expanded="false" />
+                    <element signature="e#15523#15693#0" expanded="false" />
+                    <element signature="e#15795#15984#0" expanded="false" />
+                    <element signature="e#16213#16373#0" expanded="false" />
+                    <element signature="e#16763#16775#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -232,10 +222,10 @@
         <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Typers.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/package.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/package.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala" />
       </list>
     </option>
   </component>
@@ -987,12 +977,12 @@
       <workItem from="1430877562911" duration="651000" />
       <workItem from="1430918661437" duration="19434000" />
       <workItem from="1430988313723" duration="2971000" />
-      <workItem from="1430991381744" duration="6678000" />
+      <workItem from="1430991381744" duration="11428000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187264000" />
+    <option name="totallyTimeSpent" value="192014000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1003,6 +993,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1024,7 +1015,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17621776" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1390,8 +1380,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40136054" vertical-offset="2883" max-vertical-offset="4395">
-          <caret line="322" column="4" selection-start-line="320" selection-start-column="4" selection-end-line="322" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.28798187" vertical-offset="3623" max-vertical-offset="4725">
+          <caret line="367" column="9" selection-start-line="367" selection-start-column="8" selection-end-line="367" selection-end-column="9" />
           <folding>
             <element signature="e#95#163#0" expanded="false" />
             <element signature="e#226#1265#1" expanded="false" />
@@ -1400,7 +1390,6 @@
             <element signature="e#3767#4026#1" expanded="false" />
             <element signature="e#3773#4022#0" expanded="false" />
             <element signature="e#3865#4022#0" expanded="false" />
-            <element signature="e#4806#4863#1" expanded="false" />
             <element signature="e#6262#6318#0" expanded="false" />
             <element signature="e#6507#6590#0" expanded="false" />
             <element signature="e#6840#6866#0" expanded="false" />
@@ -1410,8 +1399,6 @@
             <element signature="e#7700#7786#0" expanded="false" />
             <element signature="e#7899#7971#0" expanded="false" />
             <element signature="e#8933#9013#0" expanded="false" />
-            <element signature="e#9524#10267#0" expanded="false" />
-            <element signature="e#9582#10267#0" expanded="false" />
             <element signature="e#10273#10627#0" expanded="false" />
             <element signature="e#10337#10546#0" expanded="false" />
             <element signature="e#10352#10538#1" expanded="false" />
@@ -1419,9 +1406,6 @@
             <element signature="e#10683#10935#0" expanded="false" />
             <element signature="e#10732#10878#0" expanded="false" />
             <element signature="e#10941#11230#0" expanded="false" />
-            <element signature="e#11638#12013#0" expanded="false" />
-            <element signature="e#11721#12013#0" expanded="false" />
-            <element signature="e#11875#12007#0" expanded="false" />
             <element signature="e#12029#12222#0" expanded="false" />
             <element signature="e#12646#12845#0" expanded="false" />
             <element signature="e#13395#13587#0" expanded="false" />
@@ -1430,87 +1414,83 @@
             <element signature="e#13750#14209#0" expanded="false" />
             <element signature="e#14215#14647#0" expanded="false" />
             <element signature="e#14270#14647#0" expanded="false" />
-            <element signature="e#17121#17308#1" expanded="false" />
-            <element signature="e#17125#17306#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3163" max-vertical-offset="3630">
-          <caret line="448" column="3" selection-start-line="448" selection-start-column="3" selection-end-line="448" selection-end-column="3" />
-          <folding>
-            <element signature="e#119#912#1" expanded="false" />
-            <element signature="e#956#996#0" expanded="false" />
-            <element signature="e#1025#1085#1" expanded="false" />
-            <element signature="e#1097#1173#0" expanded="false" />
-            <element signature="e#1455#1487#0" expanded="false" />
-            <element signature="e#1662#1765#1" expanded="false" />
-            <element signature="e#1847#1900#0" expanded="false" />
-            <element signature="e#2036#2079#0" expanded="false" />
-            <element signature="e#2337#2394#1" expanded="false" />
-            <element signature="e#2514#2653#0" expanded="false" />
-            <element signature="e#2772#2866#0" expanded="false" />
-            <element signature="e#3083#3129#1" expanded="false" />
-            <element signature="e#3141#3183#0" expanded="false" />
-            <element signature="e#3510#3602#0" expanded="false" />
-            <element signature="e#3656#3678#0" expanded="false" />
-            <element signature="e#4032#4053#0" expanded="false" />
-            <element signature="e#4448#4475#0" expanded="false" />
-            <element signature="e#5154#5179#0" expanded="false" />
-            <element signature="e#5840#5866#0" expanded="false" />
-            <element signature="e#5910#6204#1" expanded="false" />
-            <element signature="e#5916#6200#0" expanded="false" />
-            <element signature="e#6029#6194#0" expanded="false" />
-            <element signature="e#6979#7002#0" expanded="false" />
-            <element signature="e#7113#7362#0" expanded="false" />
-            <element signature="e#7381#8053#1" expanded="false" />
-            <element signature="e#8734#9204#0" expanded="false" />
-            <element signature="e#8815#9204#0" expanded="false" />
-            <element signature="e#9328#9536#0" expanded="false" />
-            <element signature="e#9542#10107#0" expanded="false" />
-            <element signature="e#9662#10032#0" expanded="false" />
-            <element signature="e#9687#10024#1" expanded="false" />
-            <element signature="e#9920#9959#0" expanded="false" />
-            <element signature="e#10113#10395#0" expanded="false" />
-            <element signature="e#10164#10395#0" expanded="false" />
-            <element signature="e#10401#10698#0" expanded="false" />
-            <element signature="e#10825#12003#0" expanded="false" />
-            <element signature="e#10900#12003#0" expanded="false" />
-            <element signature="e#10916#11617#0" expanded="false" />
-            <element signature="e#12009#12574#0" expanded="false" />
-            <element signature="e#12112#12574#0" expanded="false" />
-            <element signature="e#13084#15663#0" expanded="false" />
-            <element signature="e#13305#13744#0" expanded="false" />
-            <element signature="e#13276#14143#0" expanded="false" />
-            <element signature="e#13870#14135#0" expanded="false" />
-            <element signature="e#13883#14125#0" expanded="false" />
-            <element signature="e#14242#14437#0" expanded="false" />
-            <element signature="e#14559#14729#0" expanded="false" />
-            <element signature="e#14831#15020#0" expanded="false" />
-            <element signature="e#15249#15409#0" expanded="false" />
-            <element signature="e#15698#15993#0" expanded="false" />
-            <element signature="e#15799#15811#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1538463" vertical-offset="6399" max-vertical-offset="6840">
-          <caret line="439" column="105" selection-start-line="439" selection-start-column="41" selection-end-line="439" selection-end-column="130" />
-          <folding>
-            <element signature="e#31#67#0" expanded="true" />
+            <element signature="e#17126#17313#1" expanded="false" />
+            <element signature="e#17130#17311#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/org/apache/flink/fsql/parserTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51391864" vertical-offset="525" max-vertical-offset="1290">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1290">
           <caret line="53" column="94" selection-start-line="53" selection-start-column="94" selection-end-line="53" selection-end-column="94" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="46.5" vertical-offset="3759" max-vertical-offset="4200">
+          <caret line="260" column="70" selection-start-line="260" selection-start-column="70" selection-end-line="260" selection-end-column="70" />
+          <folding>
+            <element signature="e#119#912#1" expanded="false" />
+            <element signature="e#956#996#0" expanded="false" />
+            <element signature="e#1097#1173#0" expanded="false" />
+            <element signature="e#1642#1745#1" expanded="false" />
+            <element signature="e#1827#1880#0" expanded="false" />
+            <element signature="e#2524#2581#1" expanded="false" />
+            <element signature="e#2701#2840#0" expanded="false" />
+            <element signature="e#2959#3053#0" expanded="false" />
+            <element signature="e#3270#3316#1" expanded="false" />
+            <element signature="e#3328#3370#0" expanded="false" />
+            <element signature="e#3697#3789#0" expanded="false" />
+            <element signature="e#3843#3865#0" expanded="false" />
+            <element signature="e#4219#4240#0" expanded="false" />
+            <element signature="e#4635#4662#0" expanded="false" />
+            <element signature="e#5341#5366#0" expanded="false" />
+            <element signature="e#6027#6053#0" expanded="false" />
+            <element signature="e#6097#6391#1" expanded="false" />
+            <element signature="e#6103#6387#0" expanded="false" />
+            <element signature="e#6216#6381#0" expanded="false" />
+            <element signature="e#7166#7189#0" expanded="false" />
+            <element signature="e#7300#7549#0" expanded="false" />
+            <element signature="e#7568#8240#1" expanded="false" />
+            <element signature="e#9698#10168#0" expanded="false" />
+            <element signature="e#9779#10168#0" expanded="false" />
+            <element signature="e#10292#10500#0" expanded="false" />
+            <element signature="e#10506#11071#0" expanded="false" />
+            <element signature="e#10626#10996#0" expanded="false" />
+            <element signature="e#10651#10988#1" expanded="false" />
+            <element signature="e#10884#10923#0" expanded="false" />
+            <element signature="e#11077#11359#0" expanded="false" />
+            <element signature="e#11128#11359#0" expanded="false" />
+            <element signature="e#11365#11662#0" expanded="false" />
+            <element signature="e#11789#12967#0" expanded="false" />
+            <element signature="e#11864#12967#0" expanded="false" />
+            <element signature="e#11880#12581#0" expanded="false" />
+            <element signature="e#12973#13538#0" expanded="false" />
+            <element signature="e#13076#13538#0" expanded="false" />
+            <element signature="e#14048#16627#0" expanded="false" />
+            <element signature="e#14269#14708#0" expanded="false" />
+            <element signature="e#14240#15107#0" expanded="false" />
+            <element signature="e#14834#15099#0" expanded="false" />
+            <element signature="e#14847#15089#0" expanded="false" />
+            <element signature="e#15206#15401#0" expanded="false" />
+            <element signature="e#15523#15693#0" expanded="false" />
+            <element signature="e#15795#15984#0" expanded="false" />
+            <element signature="e#16213#16373#0" expanded="false" />
+            <element signature="e#16763#16775#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48979592" vertical-offset="6369" max-vertical-offset="6840">
+          <caret line="439" column="108" selection-start-line="439" selection-start-column="108" selection-end-line="439" selection-end-column="108" />
+          <folding>
+            <element signature="e#31#67#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -352,6 +352,7 @@ private[flinkdsl] object Ast {
   }
 
   private def resolveSelect(s: Select[Option[String]])(env: List[Table] = s.tables): ?[Select[Table]] = {
+    
     val r = new ResolveEnv(env)
     for {
       p <- r.resolveProj(s.projection)

@@ -38,13 +38,12 @@ private[fsql] object Ast {
            *  CREATE A NEW SCHEMA
            * * @tparam T
            */
-  sealed trait newSchema[T]
-  case class anonymousSchema[T](value: List[StructField])  extends newSchema[T]
-  case class namedSchema[T] (name : String) extends newSchema[T]
+  sealed trait newSchema
+  case class anonymousSchema(value: List[StructField])  extends newSchema
+  case class namedSchema (name : String) extends newSchema
 
-  case class createSchema[T](s: String, schema: Schema, parentSchema: Option[String]) extends Statement[T] {
+  case class CreateSchema[T](s: String, schema: Schema, parentSchema: Option[String]) extends Statement[T] {
     def streams = Nil
-    
   }
 
 
@@ -65,14 +64,23 @@ private[fsql] object Ast {
 
   // create a new stream
   case class CreateStream[T](name : String, schema : Schema, source: Option[Source[T]]) extends Statement[T] {
-       def streams = Nil
-            
+       def streams = Stream(name,None) :: (source.fold(List[Stream]())(s => s.streams))
   }
 
-  sealed  trait Source[T]
-  case class hostSource[T](host: String, port : Int) extends Source[T]
-  case class fileSource[T](fileName: String) extends Source[T]
-  case class derivedSource[T](i: Int) extends Source[T]
+  sealed  trait Source[T] {
+    def streams: List[Stream]
+  }
+  case class HostSource[T](host: String, port : Int) extends Source[T] {
+    def streams = Nil
+    
+  }
+  case class FileSource[T](fileName: String) extends Source[T] {
+    def streams = Nil
+    
+  }
+  case class DerivedSource[T](subSelect: Select[T]) extends Source[T]{
+    def streams = subSelect.streams
+  }
   
   
   sealed trait StreamReferences[T]{
@@ -245,14 +253,15 @@ private[fsql] object Ast {
   object Resolved extends  Resolved
   
   
-  
 
-  def resolvedStreams(stmt : Statement[Option[String]])//: ?[Statement[Stream]]
+  def resolvedStreams(stmt : Statement[Option[String]]): ?[Statement[Stream]]
   = stmt match {
     case s@Select(_,_,_,_) => resolveSelect(s)(stmt.streams)
+    case CreateSchema(s,schema,p) => CreateSchema[Stream](s,schema,p).ok
+    case cs@CreateStream(n,schema,source) => resolveCreateStream(cs)()
   }
   
-  def resolveSelect (select: Select[Option[String]])(env: List[Stream] = List())= {
+  def resolveSelect (select: Select[Option[String]])(env: List[Stream] = select.streams)= {
     val r = new ResolveEnv(env)
     for {
       p <- r.resolveProj(select.projection)
@@ -262,8 +271,21 @@ private[fsql] object Ast {
     } yield select.copy(projection =  p, streamReference =  s, where = w, groupBy = g)
   }
   
+  def resolveCreateStream(createStream : CreateStream[Option[String]])(env: List[Stream] = createStream.streams)  = {
+    val r = new ResolveEnv(env)
+    resolveSourceOpt(createStream.source) map (s => createStream.copy(source = s))
+  }
   
+  def resolveSourceOpt (sourceOpt: Option[Source[Option[String]]])= 
+    sequenceO(sourceOpt map resolveSource)
   
+  def resolveSource(source: Source[Option[String]])  = source match{
+    case host@HostSource(h,p) => HostSource[Stream](h,p).ok
+    case file@FileSource(path) => FileSource[Stream](path).ok
+    case d@DerivedSource(s)   => resolveSelect(s)() map ( s => DerivedSource(s))
+  }
+  
+ 
   private class ResolveEnv (env : List[Stream]) {
 
     // Basic Elements
