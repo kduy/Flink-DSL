@@ -372,12 +372,18 @@ private[fsql] object Ast {
 
 
     //StreamReference
-    def resolveStreamRef(streamRefs: StreamReferences[Option[String]]) = streamRefs match {
+    def resolveStreamRef(streamRefs: StreamReferences[Option[String]]) : ?[StreamReferences[Stream]]= streamRefs match {
       case c@ConcreteStream(wStream, join) => for {
         ws <- resolveWindowedStream(wStream)
         j <- sequenceO(join map resolveJoin)
       } yield c.copy(windowedStream = ws, join = j)
-      //TODO: case d@DerivedStream(_, _, _) => ???
+      
+
+      case d@DerivedStream(_, select, join) => for{
+        s <- resolveSelect(select)()
+        j <- sequenceO(join map resolveJoin)
+      } yield d.copy(subSelect = s,join = j)
+
     }
 
 
