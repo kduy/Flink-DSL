@@ -437,7 +437,8 @@ object Test2 extends FsqlParser {
     val result = for {
       //stmt <- parser(new FsqlParser {}, "select id, s.speed, stream.time from stream [size 3]as s cross join stream2[size 3]")
       //stmt <- parser(new FsqlParser {}, "select id from stream [size 3] as s1 left join suoi [size 3] as s2 on s1.time=s2.thoigian")
-    stmt <- parser(new FsqlParser {}, "create stream myStream(time long) as (select p.id from oldStream as p)")
+    //stmt <- parser(new FsqlParser {}, "create stream myStream(time long) as (select p.id from oldStream as p)")
+    stmt <- parser(new FsqlParser {}, "create schema myStream oldschema ")
 
     x <- Ast.resolvedStreams(stmt)
     //y = stmt.streams

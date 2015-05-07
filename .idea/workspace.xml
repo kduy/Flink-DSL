@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a11fae24-c447-403d-9676-7582ac8a12fe" name="Default" comment="run Resolve">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" afterPath="$PROJECT_DIR$/src/main/scala/flinkdsl/ast.scala" />
-    </list>
+    <list default="true" id="a11fae24-c447-403d-9676-7582ac8a12fe" name="Default" comment="run Resolve" />
     <ignored path="Flink-DSL.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -106,11 +103,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="parser.scala" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="parser.scala" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.48979592" vertical-offset="6369" max-vertical-offset="6840">
-                  <caret line="439" column="108" selection-start-line="439" selection-start-column="108" selection-end-line="439" selection-end-column="108" />
+                <state vertical-scroll-proportion="-31.384615" vertical-offset="5784" max-vertical-offset="6855">
+                  <caret line="440" column="71" selection-start-line="440" selection-start-column="71" selection-end-line="440" selection-end-column="71" />
                   <folding>
                     <element signature="e#31#67#0" expanded="true" />
                   </folding>
@@ -118,10 +115,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Ast.scala" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="Ast.scala" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="46.5" vertical-offset="3759" max-vertical-offset="4200">
+                <state vertical-scroll-proportion="-1.414966" vertical-offset="3174" max-vertical-offset="4200">
                   <caret line="260" column="70" selection-start-line="260" selection-start-column="70" selection-end-line="260" selection-end-column="70" />
                   <folding>
                     <element signature="e#119#912#1" expanded="false" />
@@ -977,12 +974,12 @@
       <workItem from="1430877562911" duration="651000" />
       <workItem from="1430918661437" duration="19434000" />
       <workItem from="1430988313723" duration="2971000" />
-      <workItem from="1430991381744" duration="11428000" />
+      <workItem from="1430991381744" duration="11563000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192014000" />
+    <option name="totallyTimeSpent" value="192149000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1428,9 +1425,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-31.384615" vertical-offset="5784" max-vertical-offset="6855">
+          <caret line="440" column="71" selection-start-line="440" selection-start-column="71" selection-end-line="440" selection-end-column="71" />
+          <folding>
+            <element signature="e#31#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/Ast.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="46.5" vertical-offset="3759" max-vertical-offset="4200">
+        <state vertical-scroll-proportion="-1.414966" vertical-offset="3174" max-vertical-offset="4200">
           <caret line="260" column="70" selection-start-line="260" selection-start-column="70" selection-end-line="260" selection-end-column="70" />
           <folding>
             <element signature="e#119#912#1" expanded="false" />
@@ -1480,16 +1487,6 @@
             <element signature="e#15795#15984#0" expanded="false" />
             <element signature="e#16213#16373#0" expanded="false" />
             <element signature="e#16763#16775#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/org/apache/flink/fsql/parser.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48979592" vertical-offset="6369" max-vertical-offset="6840">
-          <caret line="439" column="108" selection-start-line="439" selection-start-column="108" selection-end-line="439" selection-end-column="108" />
-          <folding>
-            <element signature="e#31#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
