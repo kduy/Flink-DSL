@@ -1,0 +1,18 @@
+let y = HELLO
+
+space
+print y
+let x = 42
+print x
+
+space
+repeat 10
+  let y = GOODBYE
+  print y
+next
+
+space
+print y
+
+space
+print "Adios!"

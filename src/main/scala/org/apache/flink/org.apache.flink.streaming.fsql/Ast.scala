@@ -1,8 +1,12 @@
-package org.apache.flink.fsql
+package org.apache.flink.streaming.fsql
 
 import scala.reflect.runtime.universe._
 
 private[fsql] object Ast {
+
+  /**
+   * *  UNRESOLVED
+   */
 
   trait Unresolved {
     type Expr = Ast.Expr[Option[String]]
@@ -121,9 +125,9 @@ private[fsql] object Ast {
   
   case class Where[T](predicate: Predicate[T])
 
-  /**
-   *  WINDOW
-   */
+          /**
+           *  WINDOW
+           */
   
   case class WindowSpec[T](window: Window[T], every: Option[Every[T]], partition: Option[Partition[T]])
   case class Window[T](policyBased: PolicyBased[T])
@@ -132,9 +136,9 @@ private[fsql] object Ast {
   case class PolicyBased[T] (value: Int, timeUnit: Option[String], onField: Option[Column[T]])
 
 
-  /**
-   * * JOIN
-   */
+          /**
+           * * JOIN
+           */
   
   case class Join[T] (stream: StreamReferences[T], joinSpec: Option[JoinSpec[T]], joinDesc: JoinDesc) {}
   
@@ -147,9 +151,9 @@ private[fsql] object Ast {
   case class QualifiedJoin[T](predicate: Predicate[T]) extends JoinSpec[T]
   
 
-  /**
-   * * EXPRESSION
-   */
+          /**
+           * * EXPRESSION
+           */
   // Expression (previously : Term)
   sealed trait Expr[T]
   case class Constant[T](tpe: (Type, Int), value : Any) extends Expr[T]
@@ -163,9 +167,9 @@ private[fsql] object Ast {
   case class Case[T](conditions: List[(Predicate[T], Expr[T])], elze: Option[Expr[T]]) extends Expr[T]
 
 
-  /**
-   * * OPERATOR
-   */
+          /**
+           * * OPERATOR
+           */
   // Operator
   sealed trait Operator1
   case object IsNull extends Operator1
@@ -188,9 +192,9 @@ private[fsql] object Ast {
   case object Between extends Operator3
   case object NotBetween extends Operator3
 
-  /**
-   * * PREDICATE
-   */
+          /**
+           * * PREDICATE
+           */
   // Predicate
   sealed trait Predicate[T] {
     def find(p: Predicate[T] => Boolean): Option[Predicate[T]] = {

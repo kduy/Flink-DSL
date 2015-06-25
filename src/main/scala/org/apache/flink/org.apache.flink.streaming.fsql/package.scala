@@ -1,4 +1,4 @@
-package org.apache.flink
+package org.apache.flink.streaming
 
 
 package object fsql {
@@ -26,7 +26,7 @@ package object fsql {
   private[fsql] def fail[A](s: String, column: Int = 0, line: Int = 0): ?[A] = {
     fsql.Failure(s, column, line)
   }
-  private[fsql] def ok[A](a: A): ?[A] = 
+  private[fsql] def ok[A](a: A): ?[A] =
     fsql.Ok(a)
 
   
@@ -64,9 +64,9 @@ package object fsql {
 package fsql{
 /**
  * * ? class : whether the result is successful or fail
- * *  monads style 
+ * *  monads style
  */
-  
+
   private[fsql] abstract sealed class ?[+A] { self =>
     def map[B](f: A => B): ?[B]
     def flatMap[B](f: A => ?[B]): ?[B]
@@ -81,9 +81,9 @@ package fsql{
       def foreach[U](f: A => U): Unit = self filter p foreach f
       def withFilter(q: A => Boolean): WithFilter = new WithFilter(x => p(x) && q(x))
     }
-  
+
   }
-  
+
   private[fsql] final case class Ok[+A](a: A) extends ?[A] {
     def map[B](f: (A) => B): ?[B] = Ok(f(a))
 
@@ -97,7 +97,7 @@ package fsql{
 
     def getOrElse[B >: A](default: => B): B = a
   }
-  
+
   private[fsql] final case class Failure[+A](message: String, column: Int, line: Int) extends ?[A]{
     def map[B](f: (A) => B): ?[B] = Failure(message, column, line)
 
@@ -111,5 +111,5 @@ package fsql{
 
     def getOrElse[B >: A](default: => B): B = default
   }
-  
+
 }
